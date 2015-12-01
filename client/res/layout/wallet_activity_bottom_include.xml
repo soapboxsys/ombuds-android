@@ -9,13 +9,13 @@
 
 	<fragment
 		android:id="@+id/wallet_actions_fragment"
-		android:name="de.schildbach.wallet.ui.WalletActionsFragment"
+		android:name="systems.soapbox.ombuds.client.ui.WalletActionsFragment"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
 
 	<fragment
 		android:id="@+id/wallet_disclaimer_fragment"
-		android:name="de.schildbach.wallet.ui.WalletDisclaimerFragment"
+		android:name="systems.soapbox.ombuds.client.ui.WalletDisclaimerFragment"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
 

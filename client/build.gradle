@@ -21,7 +21,7 @@ dependencies {
 }
 
 ext {
-    archivesBaseName = 'bitcoin-wallet'
+    archivesBaseName = 'ombuds'
 }
 
 android {

@@ -99,7 +99,6 @@ import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet.ui.AddressAndLabel;
@@ -462,17 +461,6 @@ public final class SendCoinsFragment extends Fragment
 				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
 				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
 				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
-			}
-			else if ((Intent.ACTION_VIEW.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
-			{
-				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
-
-				if (intentUri != null)
-					initStateFromIntentUri(mimeType, intentUri);
-				else if (paymentRequest != null)
-					initStateFromPaymentRequest(mimeType, paymentRequest);
-				else
-					throw new IllegalArgumentException();
 			}
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
 			{
@@ -922,18 +910,6 @@ public final class SendCoinsFragment extends Fragment
 					directPay(payment);
 
 				application.broadcastTransaction(sentTransaction);
-
-				final ComponentName callingActivity = activity.getCallingActivity();
-				if (callingActivity != null)
-				{
-					log.info("returning result to calling activity: {}", callingActivity.flattenToString());
-
-					final Intent result = new Intent();
-					BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
-					if (paymentIntent.standard == Standard.BIP70)
-						BitcoinIntegration.paymentToResult(result, payment.toByteArray());
-					activity.setResult(Activity.RESULT_OK, result);
-				}
 			}
 
 			private void directPay(final Payment payment)

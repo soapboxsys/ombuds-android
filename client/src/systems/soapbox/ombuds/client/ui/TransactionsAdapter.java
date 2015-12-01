@@ -34,7 +34,6 @@ import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.Wallet;
-import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.DefaultCoinSelector;
 
@@ -343,8 +342,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		private final CurrencyTextView valueView;
 		private final View extendFeeView;
 		private final CurrencyTextView feeView;
-		private final View extendFiatView;
-		private final CurrencyTextView fiatView;
 		private final View extendMessageView;
 		private final TextView messageView;
 		private final ImageButton menuView;
@@ -365,8 +362,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			valueView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_value);
 			extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
 			feeView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fee);
-			extendFiatView = itemView.findViewById(R.id.transaction_row_extend_fiat);
-			fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
 			extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
 			messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
 			menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
@@ -563,21 +558,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 			valueView.setAmount(value);
 			valueView.setVisibility(!value.isZero() ? View.VISIBLE : View.GONE);
-
-			// fiat value
-			final ExchangeRate exchangeRate = tx.getExchangeRate();
-			if (exchangeRate != null)
-			{
-				extendFiatView.setVisibility(View.VISIBLE);
-				fiatView.setAlwaysSigned(true);
-				fiatView.setPrefixColor(colorInsignificant);
-				fiatView.setFormat(Constants.LOCAL_FORMAT.code(0, Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.fiat.getCurrencyCode()));
-				fiatView.setAmount(exchangeRate.coinToFiat(txCache.value));
-			}
-			else
-			{
-				extendFiatView.setVisibility(View.GONE);
-			}
 
 			// message
 			extendMessageView.setVisibility(View.GONE);

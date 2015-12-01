@@ -98,9 +98,6 @@ public final class Constants
 	/** User-agent to use for network access. */
 	public static final String USER_AGENT = "Bitcoin Wallet";
 
-	/** Default currency to use if all default mechanisms fail. */
-	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
-
 	/** Donation address for tip/donate action. */
 	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
 

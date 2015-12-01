@@ -138,12 +138,6 @@
 			android:screenOrientation="behind"
 			android:theme="@style/My.Theme.ChildActivity" />
 		<activity
-			android:name="systems.soapbox.ombuds.client.ui.ExchangeRatesActivity"
-			android:configChanges="keyboard|keyboardHidden"
-			android:label="@string/exchange_rates_activity_title"
-			android:screenOrientation="behind"
-			android:theme="@style/My.Theme.ChildActivity" />
-		<activity
 			android:name="systems.soapbox.ombuds.client.ui.NetworkMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/network_monitor_activity_title"
@@ -184,10 +178,6 @@
 		<provider
 			android:name="systems.soapbox.ombuds.client.AddressBookProvider"
 			android:authorities="systems.soapbox.ombuds.client_test.address_book"
-			android:exported="false" />
-		<provider
-			android:name="systems.soapbox.ombuds.client.ExchangeRatesProvider"
-			android:authorities="systems.soapbox.ombuds.client_test.exchange_rates"
 			android:exported="false" />
 		<provider
 			android:name="systems.soapbox.ombuds.client.FileAttachmentProvider"

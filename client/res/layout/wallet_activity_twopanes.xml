@@ -16,11 +16,8 @@
 			android:layout_height="match_parent"
 			android:background="@color/bg_less_bright" >
 
-			<fragment
-				android:id="@+id/exchange_rates_fragment"
-				android:name="systems.soapbox.ombuds.client.ui.ExchangeRatesFragment"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent" />
+			<!-- TODO ExchangeRatesFragment once lived here -->
+
 		</FrameLayout>
 
 		<FrameLayout

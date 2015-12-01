@@ -118,29 +118,6 @@
 		</LinearLayout>
 
 		<LinearLayout
-			android:id="@+id/transaction_row_extend_fiat"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			android:paddingTop="2dp"
-			android:visibility="gone" >
-
-			<Space
-				android:layout_width="0px"
-				android:layout_height="@dimen/symbol_size_normal"
-				android:layout_marginRight="8dp"
-				android:layout_weight="1" />
-
-			<systems.soapbox.ombuds.client.ui.CurrencyTextView
-				android:id="@+id/transaction_row_fiat"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="right|top"
-				android:layout_marginLeft="8dp"
-				android:textColor="@color/fg_insignificant" />
-		</LinearLayout>
-
-		<LinearLayout
 			android:id="@+id/transaction_row_extend_message"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

@@ -118,21 +118,6 @@
 					android:textSize="@dimen/font_size_large"
 					tools:ignore="TextFields" />
 			</systems.soapbox.ombuds.client.ui.CurrencyAmountView>
-
-			<systems.soapbox.ombuds.client.ui.CurrencyAmountView
-				android:id="@+id/send_coins_amount_local"
-				android:layout_width="0px"
-				android:layout_height="wrap_content"
-				android:layout_weight="1" >
-
-				<EditText
-					android:id="@+id/send_coins_amount_local_edittext"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:imeOptions="flagNoExtractUi"
-					android:textSize="@dimen/font_size_large"
-					tools:ignore="TextFields" />
-			</systems.soapbox.ombuds.client.ui.CurrencyAmountView>
 		</LinearLayout>
 	</LinearLayout>
 

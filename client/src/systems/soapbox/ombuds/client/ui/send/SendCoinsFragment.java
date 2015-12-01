@@ -94,8 +94,6 @@ import android.widget.TextView;
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
-import systems.soapbox.ombuds.client.ExchangeRatesProvider;
-import systems.soapbox.ombuds.client.ExchangeRatesProvider.ExchangeRate;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.data.PaymentIntent.Standard;
@@ -103,9 +101,7 @@ import systems.soapbox.ombuds.client.offline.DirectPaymentTask;
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client.ui.AddressAndLabel;
 import systems.soapbox.ombuds.client.ui.CurrencyAmountView;
-import systems.soapbox.ombuds.client.ui.CurrencyCalculatorLink;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
-import systems.soapbox.ombuds.client.ui.ExchangeRateLoader;
 import systems.soapbox.ombuds.client.ui.InputParser.BinaryInputParser;
 import systems.soapbox.ombuds.client.ui.InputParser.StreamInputParser;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
@@ -145,7 +141,7 @@ public final class SendCoinsFragment extends Fragment
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
 	private View amountGroup;
-	private CurrencyCalculatorLink amountCalculatorLink;
+	private CurrencyAmountView btcAmountView;			// Replaces CurrencyCalculatorLink
 	private CheckBox directPaymentEnableView;
 
 	private TextView hintView;
@@ -172,8 +168,7 @@ public final class SendCoinsFragment extends Fragment
 	private Transaction dryrunTransaction;
 	private Exception dryrunException;
 
-	private static final int ID_RATE_LOADER = 0;
-	private static final int ID_RECEIVING_ADDRESS_LOADER = 1;
+	private static final int ID_RECEIVING_ADDRESS_LOADER = 0;
 
 	private static final int REQUEST_CODE_SCAN = 0;
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
@@ -304,33 +299,6 @@ public final class SendCoinsFragment extends Fragment
 					updateView();
 				}
 			});
-		}
-	};
-
-	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
-	{
-		@Override
-		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
-		{
-			return new ExchangeRateLoader(activity, config);
-		}
-
-		@Override
-		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
-		{
-			if (data != null && data.getCount() > 0)
-			{
-				data.moveToFirst();
-				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-
-				if (state == null || state.compareTo(State.INPUT) <= 0)
-					amountCalculatorLink.setExchangeRate(exchangeRate.rate);
-			}
-		}
-
-		@Override
-		public void onLoaderReset(final Loader<Cursor> loader)
-		{
 		}
 	};
 
@@ -495,16 +463,10 @@ public final class SendCoinsFragment extends Fragment
 
 		amountGroup = view.findViewById(R.id.send_coins_amount_group);
 
-		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
+		btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
 		btcAmountView.setCurrencySymbol(config.getFormat().code());
 		btcAmountView.setInputFormat(config.getMaxPrecisionFormat());
 		btcAmountView.setHintFormat(config.getFormat());
-
-		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
-		localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
-		localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
-		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
-		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
 		directPaymentEnableView = (CheckBox) view.findViewById(R.id.send_coins_direct_payment_enable);
 		directPaymentEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener()
@@ -565,24 +527,15 @@ public final class SendCoinsFragment extends Fragment
 	}
 
 	@Override
-	public void onDestroyView()
-	{
-		super.onDestroyView();
-
-		config.setLastExchangeDirection(amountCalculatorLink.getExchangeDirection());
-	}
-
-	@Override
 	public void onResume()
 	{
 		super.onResume();
 
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
-		amountCalculatorLink.setListener(amountsListener);
+		btcAmountView.setListener(amountsListener);
 		privateKeyPasswordView.addTextChangedListener(privateKeyPasswordListener);
 
-		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 		loaderManager.initLoader(ID_RECEIVING_ADDRESS_LOADER, null, receivingAddressLoaderCallbacks);
 
 		updateView();
@@ -593,10 +546,8 @@ public final class SendCoinsFragment extends Fragment
 	public void onPause()
 	{
 		loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_LOADER);
-		loaderManager.destroyLoader(ID_RATE_LOADER);
 
 		privateKeyPasswordView.removeTextChangedListener(privateKeyPasswordListener);
-		amountCalculatorLink.setListener(null);
 
 		contentResolver.unregisterContentObserver(contentObserver);
 
@@ -819,7 +770,7 @@ public final class SendCoinsFragment extends Fragment
 		if (dryrunTransaction != null)
 			return dryrunException == null;
 		else if (paymentIntent.mayEditAmount())
-			return amountCalculatorLink.hasAmount();
+			return btcAmountView.getAmount() != null;
 		else
 			return paymentIntent.hasAmount();
 	}
@@ -842,7 +793,7 @@ public final class SendCoinsFragment extends Fragment
 		if (!isPayeePlausible())
 			receivingAddressView.requestFocus();
 		else if (!isAmountPlausible())
-			amountCalculatorLink.requestFocus();
+			btcAmountView.requestFocus();
 		else if (!isPasswordPlausible())
 			privateKeyPasswordView.requestFocus();
 		else if (everythingPlausible())
@@ -879,7 +830,7 @@ public final class SendCoinsFragment extends Fragment
 		setState(State.SIGNING);
 
 		// final payment intent
-		final PaymentIntent finalPaymentIntent = paymentIntent.mergeWithEditedValues(amountCalculatorLink.getAmount(),
+		final PaymentIntent finalPaymentIntent = paymentIntent.mergeWithEditedValues(( Coin) btcAmountView.getAmount(),
 				validatedAddress != null ? validatedAddress.address : null);
 		final Coin finalAmount = finalPaymentIntent.getAmount();
 
@@ -888,7 +839,6 @@ public final class SendCoinsFragment extends Fragment
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 		sendRequest.feePerKb = feeCategory.feePerKb;
 		sendRequest.memo = paymentIntent.memo;
-		sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
 		sendRequest.aesKey = encryptionKey;
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
@@ -1046,7 +996,7 @@ public final class SendCoinsFragment extends Fragment
 	private void handleEmpty()
 	{
 		final Coin available = wallet.getBalance(BalanceType.AVAILABLE);
-		amountCalculatorLink.setBtcAmount(available);
+		btcAmountView.setAmount(available, true);
 
 		updateView();
 		handler.post(dryrunRunnable);
@@ -1068,7 +1018,7 @@ public final class SendCoinsFragment extends Fragment
 			dryrunTransaction = null;
 			dryrunException = null;
 
-			final Coin amount = amountCalculatorLink.getAmount();
+			final Coin amount = (Coin) btcAmountView.getAmount();
 			if (amount != null)
 			{
 				try
@@ -1170,7 +1120,7 @@ public final class SendCoinsFragment extends Fragment
 			receivingAddressView.setEnabled(state == State.INPUT);
 
 			amountGroup.setVisibility(paymentIntent.hasAmount() || (state != null && state.compareTo(State.INPUT) >= 0) ? View.VISIBLE : View.GONE);
-			amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
+			btcAmountView.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
 			final boolean directPaymentVisible;
 			if (paymentIntent.hasPaymentUrl())
@@ -1291,10 +1241,10 @@ public final class SendCoinsFragment extends Fragment
 			privateKeyPasswordView.setEnabled(state == State.INPUT);
 
 			// focus linking
-			final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
+			final int activeAmountViewId = btcAmountView.getTextView().getId();
 			receivingAddressView.setNextFocusDownId(activeAmountViewId);
 			receivingAddressView.setNextFocusForwardId(activeAmountViewId);
-			amountCalculatorLink.setNextFocusId(privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : R.id.send_coins_go);
+			btcAmountView.setNextFocusId(privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : R.id.send_coins_go);
 			privateKeyPasswordView.setNextFocusUpId(activeAmountViewId);
 			privateKeyPasswordView.setNextFocusDownId(R.id.send_coins_go);
 			privateKeyPasswordView.setNextFocusForwardId(R.id.send_coins_go);
@@ -1422,7 +1372,7 @@ public final class SendCoinsFragment extends Fragment
 					setState(State.INPUT);
 
 					receivingAddressView.setText(null);
-					amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
+					btcAmountView.setAmount(paymentIntent.getAmount(), true);
 
 					if (paymentIntent.isBluetoothPaymentUrl())
 						directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());

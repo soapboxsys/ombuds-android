@@ -68,8 +68,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
-import systems.soapbox.ombuds.client.ExchangeRatesProvider;
-import systems.soapbox.ombuds.client.ExchangeRatesProvider.ExchangeRate;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.offline.AcceptBluetoothService;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
@@ -110,40 +108,11 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
 	private Address address;
-	private CurrencyCalculatorLink amountCalculatorLink;
-
-	private static final int ID_RATE_LOADER = 0;
+	private CurrencyAmountView btcAmountView;		// Replaces CurrencyCalculatorLink
 
 	private static boolean ENABLE_BLUETOOTH_LISTENING = Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN_MR2;
 
 	private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
-
-	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
-	{
-		@Override
-		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
-		{
-			return new ExchangeRateLoader(activity, config);
-		}
-
-		@Override
-		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
-		{
-			if (data != null && data.getCount() > 0)
-			{
-				data.moveToFirst();
-				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-
-				amountCalculatorLink.setExchangeRate(exchangeRate.rate);
-				updateView();
-			}
-		}
-
-		@Override
-		public void onLoaderReset(final Loader<Cursor> loader)
-		{
-		}
-	};
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -197,15 +166,10 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 			}
 		});
 
-		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
+		btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
 		btcAmountView.setCurrencySymbol(config.getFormat().code());
 		btcAmountView.setInputFormat(config.getMaxPrecisionFormat());
 		btcAmountView.setHintFormat(config.getFormat());
-
-		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_local);
-		localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
-		localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
-		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);
 		acceptBluetoothPaymentView.setVisibility(ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null ? View.VISIBLE : View.GONE);
@@ -249,8 +213,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 		// don't call in onCreate() because ActionBarSherlock invokes onCreateOptionsMenu() too early
 		setHasOptionsMenu(true);
 
-		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
-		amountCalculatorLink.requestFocus();
+		btcAmountView.requestFocus();
 	}
 
 	@Override
@@ -258,7 +221,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	{
 		super.onResume();
 
-		amountCalculatorLink.setListener(new CurrencyAmountView.Listener()
+		btcAmountView.setListener(new CurrencyAmountView.Listener()
 		{
 			@Override
 			public void changed()
@@ -272,8 +235,6 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 			}
 		});
 
-		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
-
 		if (ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null && bluetoothAdapter.isEnabled() && acceptBluetoothPaymentView.isChecked())
 			startBluetoothListening();
 
@@ -281,19 +242,9 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	}
 
 	@Override
-	public void onDestroyView()
-	{
-		super.onDestroyView();
-
-		config.setLastExchangeDirection(amountCalculatorLink.getExchangeDirection());
-	}
-
-	@Override
 	public void onPause()
 	{
-		loaderManager.destroyLoader(ID_RATE_LOADER);
-
-		amountCalculatorLink.setListener(null);
+		btcAmountView.setListener(null);
 
 		super.onPause();
 	}
@@ -444,7 +395,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 		initiateRequestView.setText(initiateText);
 
 		// focus linking
-		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
+		final int activeAmountViewId = btcAmountView.getTextView().getId();
 		acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
 
 		paymentRequestRef.set(paymentRequest);
@@ -452,7 +403,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
-		final Coin amount = amountCalculatorLink.getAmount();
+		final Coin amount = (Coin) btcAmountView.getAmount();
 		final String ownName = config.getOwnName();
 
 		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, ownName, null));
@@ -466,7 +417,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
 	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
 	{
-		final Coin amount = amountCalculatorLink.getAmount();
+		final Coin amount = (Coin) btcAmountView.getAmount();
 		final String paymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
 
 		return PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS, amount, address, config.getOwnName(), paymentUrl, null).build()

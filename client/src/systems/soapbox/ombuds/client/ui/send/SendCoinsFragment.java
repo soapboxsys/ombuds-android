@@ -64,8 +64,6 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.nfc.NdefMessage;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -109,7 +107,6 @@ import systems.soapbox.ombuds.client.ui.ProgressDialogFragment;
 import systems.soapbox.ombuds.client.ui.ScanActivity;
 import systems.soapbox.ombuds.client.ui.TransactionsAdapter;
 import systems.soapbox.ombuds.client.util.Bluetooth;
-import systems.soapbox.ombuds.client.util.Nfc;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;
 
@@ -416,19 +413,9 @@ public final class SendCoinsFragment extends Fragment
 			final Intent intent = activity.getIntent();
 			final String action = intent.getAction();
 			final Uri intentUri = intent.getData();
-			final String scheme = intentUri != null ? intentUri.getScheme() : null;
-			final String mimeType = intent.getType();
-
-			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
-					&& "bitcoin".equals(scheme))
+			if ((Intent.ACTION_VIEW.equals(action)))
 			{
 				initStateFromBitcoinUri(intentUri);
-			}
-			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
-			{
-				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
-				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
 			}
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
 			{

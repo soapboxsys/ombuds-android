@@ -50,8 +50,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.nfc.NdefMessage;
-import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -81,7 +79,6 @@ import systems.soapbox.ombuds.client.util.CrashReporter;
 import systems.soapbox.ombuds.client.util.Crypto;
 import systems.soapbox.ombuds.client.util.HttpGetThread;
 import systems.soapbox.ombuds.client.util.Io;
-import systems.soapbox.ombuds.client.util.Nfc;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;
 
@@ -119,8 +116,6 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		config.touchLastUsed();
 
-		handleIntent(getIntent());
-
 		MaybeMaintenanceFragment.add(getFragmentManager());
 	}
 
@@ -148,39 +143,6 @@ public final class WalletActivity extends AbstractWalletActivity
 		handler.removeCallbacksAndMessages(null);
 
 		super.onPause();
-	}
-
-	@Override
-	protected void onNewIntent(final Intent intent)
-	{
-		handleIntent(intent);
-	}
-
-	private void handleIntent(final Intent intent)
-	{
-		final String action = intent.getAction();
-
-		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action))
-		{
-			final String inputType = intent.getType();
-			final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-			final byte[] input = Nfc.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
-
-			new BinaryInputParser(inputType, input)
-			{
-				@Override
-				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
-				{
-					cannotClassify(inputType);
-				}
-
-				@Override
-				protected void error(final int messageResId, final Object... messageArgs)
-				{
-					dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
-				}
-			}.parse();
-		}
 	}
 
 	@Override

@@ -14,7 +14,6 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.NFC" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -23,9 +22,6 @@
 
 	<uses-feature
 		android:name="android.hardware.touchscreen"
-		android:required="false" />
-	<uses-feature
-		android:name="android.hardware.nfc"
 		android:required="false" />
 	<uses-feature
 		android:name="android.hardware.camera"
@@ -73,13 +69,6 @@
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
-			<intent-filter>
-				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
-
-				<data android:mimeType="application/x-btctx" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
 		</activity-alias>
 
 		<activity
@@ -98,21 +87,7 @@
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
 			<intent-filter android:label="@string/send_coins_activity_title" >
-				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
-
-				<data android:scheme="bitcoin" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.intent.action.VIEW" />
-
-				<data android:mimeType="application/bitcoin-paymentrequest" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-			<intent-filter android:label="@string/send_coins_activity_title" >
-				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
 				<data android:mimeType="application/bitcoin-paymentrequest" />
 
@@ -204,10 +179,6 @@
 		<service
 			android:name="systems.soapbox.ombuds.client.service.UpgradeWalletService"
 			android:exported="false" />
-
-		<meta-data
-			android:name="android.nfc.disable_beam_default"
-			android:value="true" />
 	</application>
 
 </manifest>

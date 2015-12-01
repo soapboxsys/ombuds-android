@@ -43,10 +43,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
-import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.CardView;
@@ -64,14 +60,12 @@ import systems.soapbox.ombuds.client_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletAddressFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback
+public final class WalletAddressFragment extends Fragment
 {
 	private Activity activity;
 	private WalletApplication application;
 	private Configuration config;
 	private LoaderManager loaderManager;
-	@Nullable
-	private NfcAdapter nfcAdapter;
 
 	private ImageView currentAddressQrView;
 
@@ -90,16 +84,12 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 		this.application = (WalletApplication) activity.getApplication();
 		this.config = application.getConfiguration();
 		this.loaderManager = getLoaderManager();
-		this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
 	}
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
-		if (nfcAdapter != null && nfcAdapter.isEnabled())
-			nfcAdapter.setNdefPushMessageCallback(this, activity);
 	}
 
 	@Override
@@ -280,14 +270,4 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 		{
 		}
 	};
-
-	@Override
-	public NdefMessage createNdefMessage(final NfcEvent event)
-	{
-		final String uri = currentAddressUriRef.get();
-		if (uri != null)
-			return new NdefMessage(new NdefRecord[] { NdefRecord.createUri(uri) });
-		else
-			return null;
-	}
 }

@@ -46,10 +46,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
-import android.nfc.NfcEvent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -73,7 +69,6 @@ import systems.soapbox.ombuds.client.offline.AcceptBluetoothService;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
 import systems.soapbox.ombuds.client.util.BitmapFragment;
 import systems.soapbox.ombuds.client.util.Bluetooth;
-import systems.soapbox.ombuds.client.util.Nfc;
 import systems.soapbox.ombuds.client.util.Qr;
 import systems.soapbox.ombuds.client.util.Toast;
 import systems.soapbox.ombuds.client_test.R;
@@ -81,7 +76,7 @@ import systems.soapbox.ombuds.client_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback
+public final class RequestCoinsFragment extends Fragment
 {
 	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
@@ -91,8 +86,6 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	private ClipboardManager clipboardManager;
 	@Nullable
 	private BluetoothAdapter bluetoothAdapter;
-	@Nullable
-	private NfcAdapter nfcAdapter;
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
@@ -126,16 +119,12 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 		this.loaderManager = getLoaderManager();
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
 	}
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
-		if (nfcAdapter != null && nfcAdapter.isEnabled())
-			nfcAdapter.setNdefPushMessageCallback(this, activity);
 
 		if (savedInstanceState != null)
 		{
@@ -390,8 +379,6 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
-		if (nfcAdapter != null && nfcAdapter.isEnabled())
-			initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
 		initiateRequestView.setText(initiateText);
 
 		// focus linking
@@ -422,15 +409,5 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
 		return PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS, amount, address, config.getOwnName(), paymentUrl, null).build()
 				.toByteArray();
-	}
-
-	@Override
-	public NdefMessage createNdefMessage(final NfcEvent event)
-	{
-		final byte[] paymentRequest = paymentRequestRef.get();
-		if (paymentRequest != null)
-			return new NdefMessage(new NdefRecord[] { Nfc.createMime(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest) });
-		else
-			return null;
 	}
 }

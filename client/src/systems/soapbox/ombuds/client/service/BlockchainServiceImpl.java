@@ -86,7 +86,6 @@ import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.WalletBalanceWidgetProvider;
 import systems.soapbox.ombuds.client.service.BlockchainState.Impediment;
 import systems.soapbox.ombuds.client.ui.WalletActivity;
 import systems.soapbox.ombuds.client.util.CrashReporter;
@@ -139,7 +138,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onThrottledWalletChanged()
 		{
-			WalletBalanceWidgetProvider.updateWidgets(BlockchainServiceImpl.this, application.getWallet());
+			// update balance widget was here
 		}
 
 		@Override

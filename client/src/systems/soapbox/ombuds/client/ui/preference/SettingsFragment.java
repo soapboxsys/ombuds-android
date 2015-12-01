@@ -27,7 +27,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.WalletBalanceWidgetProvider;
 import systems.soapbox.ombuds.client_test.R;
 
 /**
@@ -100,7 +99,6 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 			{
 				if (preference.equals(btcPrecisionPreference))
 				{
-					WalletBalanceWidgetProvider.updateWidgets(activity, application.getWallet());
 				}
 				else if (preference.equals(trustedPeerPreference))
 				{

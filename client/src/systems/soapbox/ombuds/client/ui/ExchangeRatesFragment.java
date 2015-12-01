@@ -50,7 +50,6 @@ import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.ExchangeRatesProvider;
 import systems.soapbox.ombuds.client.ExchangeRatesProvider.ExchangeRate;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.WalletBalanceWidgetProvider;
 import systems.soapbox.ombuds.client.service.BlockchainState;
 import systems.soapbox.ombuds.client.service.BlockchainStateLoader;
 import systems.soapbox.ombuds.client.util.WholeStringBuilder;
@@ -230,8 +229,6 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 			private void handleSetAsDefault(final String currencyCode)
 			{
 				config.setExchangeCurrencyCode(currencyCode);
-
-				WalletBalanceWidgetProvider.updateWidgets(activity, wallet);
 			}
 		});
 	}

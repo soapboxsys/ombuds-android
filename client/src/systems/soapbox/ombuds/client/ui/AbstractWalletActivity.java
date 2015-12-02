@@ -29,20 +29,20 @@ import systems.soapbox.ombuds.client.WalletApplication;
  */
 public abstract class AbstractWalletActivity extends Activity
 {
-	private WalletApplication application;
+    private WalletApplication application;
 
-	protected static final Logger log = LoggerFactory.getLogger(AbstractWalletActivity.class);
+    protected static final Logger log = LoggerFactory.getLogger(AbstractWalletActivity.class);
 
-	@Override
-	protected void onCreate(final Bundle savedInstanceState)
-	{
-		application = (WalletApplication) getApplication();
+    @Override
+    protected void onCreate(final Bundle savedInstanceState)
+    {
+        application = (WalletApplication) getApplication();
 
-		super.onCreate(savedInstanceState);
-	}
+        super.onCreate(savedInstanceState);
+    }
 
-	protected WalletApplication getWalletApplication()
-	{
-		return application;
-	}
+    protected WalletApplication getWalletApplication()
+    {
+        return application;
+    }
 }

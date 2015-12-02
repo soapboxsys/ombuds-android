@@ -34,98 +34,98 @@ import systems.soapbox.ombuds.client_test.R;
  */
 public final class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener
 {
-	private Activity activity;
-	private WalletApplication application;
-	private PackageManager pm;
+    private Activity activity;
+    private WalletApplication application;
+    private PackageManager pm;
 
-	private final Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
-	private Preference btcPrecisionPreference;
-	private Preference trustedPeerPreference;
-	private Preference trustedPeerOnlyPreference;
+    private Preference btcPrecisionPreference;
+    private Preference trustedPeerPreference;
+    private Preference trustedPeerOnlyPreference;
 
-	@Override
-	public void onAttach(final Activity activity)
-	{
-		super.onAttach(activity);
+    @Override
+    public void onAttach(final Activity activity)
+    {
+        super.onAttach(activity);
 
-		this.activity = activity;
-		this.application = (WalletApplication) activity.getApplication();
-		this.pm = activity.getPackageManager();
-	}
+        this.activity = activity;
+        this.application = (WalletApplication) activity.getApplication();
+        this.pm = activity.getPackageManager();
+    }
 
-	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(final Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
 
-		addPreferencesFromResource(R.xml.preference_settings);
+        addPreferencesFromResource(R.xml.preference_settings);
 
-		btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
-		btcPrecisionPreference.setOnPreferenceChangeListener(this);
+        btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
+        btcPrecisionPreference.setOnPreferenceChangeListener(this);
 
-		trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
-		trustedPeerPreference.setOnPreferenceChangeListener(this);
+        trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
+        trustedPeerPreference.setOnPreferenceChangeListener(this);
 
-		trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
-		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
+        trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
+        trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
 
-		final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
-		dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
+        final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
+        dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
 
-		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-		final String trustedPeer = prefs.getString(Configuration.PREFS_KEY_TRUSTED_PEER, "").trim();
-		updateTrustedPeer(trustedPeer);
-	}
+        final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
+        final String trustedPeer = prefs.getString(Configuration.PREFS_KEY_TRUSTED_PEER, "").trim();
+        updateTrustedPeer(trustedPeer);
+    }
 
-	@Override
-	public void onDestroy()
-	{
-		trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
-		trustedPeerPreference.setOnPreferenceChangeListener(null);
-		btcPrecisionPreference.setOnPreferenceChangeListener(null);
+    @Override
+    public void onDestroy()
+    {
+        trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
+        trustedPeerPreference.setOnPreferenceChangeListener(null);
+        btcPrecisionPreference.setOnPreferenceChangeListener(null);
 
-		super.onDestroy();
-	}
+        super.onDestroy();
+    }
 
-	@Override
-	public boolean onPreferenceChange(final Preference preference, final Object newValue)
-	{
-		// delay action because preference isn't persisted until after this method returns
-		handler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				if (preference.equals(btcPrecisionPreference))
-				{
-				}
-				else if (preference.equals(trustedPeerPreference))
-				{
-					application.stopBlockchainService();
-					updateTrustedPeer((String) newValue);
-				}
-				else if (preference.equals(trustedPeerOnlyPreference))
-				{
-					application.stopBlockchainService();
-				}
-			}
-		});
+    @Override
+    public boolean onPreferenceChange(final Preference preference, final Object newValue)
+    {
+        // delay action because preference isn't persisted until after this method returns
+        handler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (preference.equals(btcPrecisionPreference))
+                {
+                }
+                else if (preference.equals(trustedPeerPreference))
+                {
+                    application.stopBlockchainService();
+                    updateTrustedPeer((String) newValue);
+                }
+                else if (preference.equals(trustedPeerOnlyPreference))
+                {
+                    application.stopBlockchainService();
+                }
+            }
+        });
 
-		return true;
-	}
+        return true;
+    }
 
-	private void updateTrustedPeer(final String trustedPeer)
-	{
-		if (trustedPeer.isEmpty())
-		{
-			trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
-			trustedPeerOnlyPreference.setEnabled(false);
-		}
-		else
-		{
-			trustedPeerPreference.setSummary(trustedPeer);
-			trustedPeerOnlyPreference.setEnabled(true);
-		}
-	}
+    private void updateTrustedPeer(final String trustedPeer)
+    {
+        if (trustedPeer.isEmpty())
+        {
+            trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
+            trustedPeerOnlyPreference.setEnabled(false);
+        }
+        else
+        {
+            trustedPeerPreference.setSummary(trustedPeer);
+            trustedPeerOnlyPreference.setEnabled(true);
+        }
+    }
 }

@@ -27,29 +27,29 @@ import systems.soapbox.ombuds.client_test.R;
  */
 public final class PreferenceActivity extends android.preference.PreferenceActivity
 {
-	@Override
-	public void onBuildHeaders(final List<Header> target)
-	{
-		loadHeadersFromResource(R.xml.preference_headers, target);
-	}
+    @Override
+    public void onBuildHeaders(final List<Header> target)
+    {
+        loadHeadersFromResource(R.xml.preference_headers, target);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item)
-	{
-		switch (item.getItemId())
-		{
-			case android.R.id.home:
-				finish();
-				return true;
-		}
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
 
-		return super.onOptionsItemSelected(item);
-	}
+        return super.onOptionsItemSelected(item);
+    }
 
-	@Override
-	protected boolean isValidFragment(final String fragmentName)
-	{
-		return SettingsFragment.class.getName().equals(fragmentName) || DiagnosticsFragment.class.getName().equals(fragmentName)
-				|| AboutFragment.class.getName().equals(fragmentName);
-	}
+    @Override
+    protected boolean isValidFragment(final String fragmentName)
+    {
+        return SettingsFragment.class.getName().equals(fragmentName) || DiagnosticsFragment.class.getName().equals(fragmentName)
+                || AboutFragment.class.getName().equals(fragmentName);
+    }
 }

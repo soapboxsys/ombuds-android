@@ -40,83 +40,83 @@ import systems.soapbox.ombuds.client.util.ThrottlingWalletChangeListener;
  */
 public final class WalletBalanceLoader extends AsyncTaskLoader<Coin>
 {
-	private LocalBroadcastManager broadcastManager;
-	private final Wallet wallet;
+    private LocalBroadcastManager broadcastManager;
+    private final Wallet wallet;
 
-	private static final Logger log = LoggerFactory.getLogger(WalletBalanceLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(WalletBalanceLoader.class);
 
-	public WalletBalanceLoader(final Context context, final Wallet wallet)
-	{
-		super(context);
+    public WalletBalanceLoader(final Context context, final Wallet wallet)
+    {
+        super(context);
 
-		this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
-		this.wallet = wallet;
-	}
+        this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
+        this.wallet = wallet;
+    }
 
-	@Override
-	protected void onStartLoading()
-	{
-		super.onStartLoading();
+    @Override
+    protected void onStartLoading()
+    {
+        super.onStartLoading();
 
-		wallet.addEventListener(walletChangeListener, Threading.SAME_THREAD);
-		broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
+        wallet.addEventListener(walletChangeListener, Threading.SAME_THREAD);
+        broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
 
-		safeForceLoad();
-	}
+        safeForceLoad();
+    }
 
-	@Override
-	protected void onStopLoading()
-	{
-		broadcastManager.unregisterReceiver(walletChangeReceiver);
-		wallet.removeEventListener(walletChangeListener);
-		walletChangeListener.removeCallbacks();
+    @Override
+    protected void onStopLoading()
+    {
+        broadcastManager.unregisterReceiver(walletChangeReceiver);
+        wallet.removeEventListener(walletChangeListener);
+        walletChangeListener.removeCallbacks();
 
-		super.onStopLoading();
-	}
+        super.onStopLoading();
+    }
 
-	@Override
-	protected void onReset()
-	{
-		broadcastManager.unregisterReceiver(walletChangeReceiver);
-		wallet.removeEventListener(walletChangeListener);
-		walletChangeListener.removeCallbacks();
+    @Override
+    protected void onReset()
+    {
+        broadcastManager.unregisterReceiver(walletChangeReceiver);
+        wallet.removeEventListener(walletChangeListener);
+        walletChangeListener.removeCallbacks();
 
-		super.onReset();
-	}
+        super.onReset();
+    }
 
-	@Override
-	public Coin loadInBackground()
-	{
-		return wallet.getBalance(BalanceType.ESTIMATED);
-	}
+    @Override
+    public Coin loadInBackground()
+    {
+        return wallet.getBalance(BalanceType.ESTIMATED);
+    }
 
-	private final ThrottlingWalletChangeListener walletChangeListener = new ThrottlingWalletChangeListener()
-	{
-		@Override
-		public void onThrottledWalletChanged()
-		{
-			safeForceLoad();
-		}
-	};
+    private final ThrottlingWalletChangeListener walletChangeListener = new ThrottlingWalletChangeListener()
+    {
+        @Override
+        public void onThrottledWalletChanged()
+        {
+            safeForceLoad();
+        }
+    };
 
-	private final BroadcastReceiver walletChangeReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(final Context context, final Intent intent)
-		{
-			safeForceLoad();
-		}
-	};
+    private final BroadcastReceiver walletChangeReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(final Context context, final Intent intent)
+        {
+            safeForceLoad();
+        }
+    };
 
-	private void safeForceLoad()
-	{
-		try
-		{
-			forceLoad();
-		}
-		catch (final RejectedExecutionException x)
-		{
-			log.info("rejected execution: " + WalletBalanceLoader.this.toString());
-		}
-	}
+    private void safeForceLoad()
+    {
+        try
+        {
+            forceLoad();
+        }
+        catch (final RejectedExecutionException x)
+        {
+            log.info("rejected execution: " + WalletBalanceLoader.this.toString());
+        }
+    }
 }

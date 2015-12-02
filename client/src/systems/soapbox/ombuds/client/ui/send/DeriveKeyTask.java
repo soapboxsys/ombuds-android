@@ -28,35 +28,35 @@ import android.os.Looper;
  */
 public abstract class DeriveKeyTask
 {
-	private final Handler backgroundHandler;
-	private final Handler callbackHandler;
+    private final Handler backgroundHandler;
+    private final Handler callbackHandler;
 
-	public DeriveKeyTask(final Handler backgroundHandler)
-	{
-		this.backgroundHandler = backgroundHandler;
-		this.callbackHandler = new Handler(Looper.myLooper());
-	}
+    public DeriveKeyTask(final Handler backgroundHandler)
+    {
+        this.backgroundHandler = backgroundHandler;
+        this.callbackHandler = new Handler(Looper.myLooper());
+    }
 
-	public final void deriveKey(final KeyCrypter keyCrypter, final String password)
-	{
-		backgroundHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				final KeyParameter encryptionKey = keyCrypter.deriveKey(password); // takes time
+    public final void deriveKey(final KeyCrypter keyCrypter, final String password)
+    {
+        backgroundHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final KeyParameter encryptionKey = keyCrypter.deriveKey(password); // takes time
 
-				callbackHandler.post(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						onSuccess(encryptionKey);
-					}
-				});
-			}
-		});
-	}
+                callbackHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        onSuccess(encryptionKey);
+                    }
+                });
+            }
+        });
+    }
 
-	protected abstract void onSuccess(KeyParameter encryptionKey);
+    protected abstract void onSuccess(KeyParameter encryptionKey);
 }

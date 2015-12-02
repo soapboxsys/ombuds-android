@@ -56,203 +56,203 @@ import systems.soapbox.ombuds.client_test.R;
  */
 public final class RequestWalletBalanceTask
 {
-	private final Handler backgroundHandler;
-	private final Handler callbackHandler;
-	private final ResultCallback resultCallback;
-	@Nullable
-	private final String userAgent;
+    private final Handler backgroundHandler;
+    private final Handler callbackHandler;
+    private final ResultCallback resultCallback;
+    @Nullable
+    private final String userAgent;
 
-	private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
+    private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
 
-	public interface ResultCallback
-	{
-		void onResult(Collection<Transaction> transactions);
+    public interface ResultCallback
+    {
+        void onResult(Collection<Transaction> transactions);
 
-		void onFail(int messageResId, Object... messageArgs);
-	}
+        void onFail(int messageResId, Object... messageArgs);
+    }
 
-	public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback, @Nullable final String userAgent)
-	{
-		this.backgroundHandler = backgroundHandler;
-		this.callbackHandler = new Handler(Looper.myLooper());
-		this.resultCallback = resultCallback;
-		this.userAgent = userAgent;
-	}
+    public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback, @Nullable final String userAgent)
+    {
+        this.backgroundHandler = backgroundHandler;
+        this.callbackHandler = new Handler(Looper.myLooper());
+        this.resultCallback = resultCallback;
+        this.userAgent = userAgent;
+    }
 
-	public void requestWalletBalance(final Address... addresses)
-	{
-		backgroundHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				final StringBuilder url = new StringBuilder(Constants.BITEASY_API_URL);
-				url.append("outputs");
-				url.append("?per_page=MAX");
-				url.append("&operator=AND");
-				url.append("&spent_state=UNSPENT");
-				for (final Address address : addresses)
-					url.append("&address[]=").append(address.toString());
+    public void requestWalletBalance(final Address... addresses)
+    {
+        backgroundHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final StringBuilder url = new StringBuilder(Constants.BITEASY_API_URL);
+                url.append("outputs");
+                url.append("?per_page=MAX");
+                url.append("&operator=AND");
+                url.append("&spent_state=UNSPENT");
+                for (final Address address : addresses)
+                    url.append("&address[]=").append(address.toString());
 
-				log.debug("trying to request wallet balance from {}", url);
+                log.debug("trying to request wallet balance from {}", url);
 
-				HttpURLConnection connection = null;
-				Reader reader = null;
+                HttpURLConnection connection = null;
+                Reader reader = null;
 
-				try
-				{
-					connection = (HttpURLConnection) new URL(url.toString()).openConnection();
+                try
+                {
+                    connection = (HttpURLConnection) new URL(url.toString()).openConnection();
 
-					connection.setInstanceFollowRedirects(false);
-					connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-					connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-					connection.setUseCaches(false);
-					connection.setDoInput(true);
-					connection.setDoOutput(false);
+                    connection.setInstanceFollowRedirects(false);
+                    connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
+                    connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
+                    connection.setUseCaches(false);
+                    connection.setDoInput(true);
+                    connection.setDoOutput(false);
 
-					connection.setRequestMethod("GET");
-					if (userAgent != null)
-						connection.addRequestProperty("User-Agent", userAgent);
-					connection.connect();
+                    connection.setRequestMethod("GET");
+                    if (userAgent != null)
+                        connection.addRequestProperty("User-Agent", userAgent);
+                    connection.connect();
 
-					final int responseCode = connection.getResponseCode();
-					if (responseCode == HttpURLConnection.HTTP_OK)
-					{
-						reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Charsets.UTF_8);
-						final StringBuilder content = new StringBuilder();
-						Io.copy(reader, content);
+                    final int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK)
+                    {
+                        reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Charsets.UTF_8);
+                        final StringBuilder content = new StringBuilder();
+                        Io.copy(reader, content);
 
-						final JSONObject json = new JSONObject(content.toString());
+                        final JSONObject json = new JSONObject(content.toString());
 
-						final int status = json.getInt("status");
-						if (status != 200)
-							throw new IOException("api status " + status + " when fetching unspent outputs");
+                        final int status = json.getInt("status");
+                        if (status != 200)
+                            throw new IOException("api status " + status + " when fetching unspent outputs");
 
-						final JSONObject jsonData = json.getJSONObject("data");
+                        final JSONObject jsonData = json.getJSONObject("data");
 
-						final JSONObject jsonPagination = jsonData.getJSONObject("pagination");
+                        final JSONObject jsonPagination = jsonData.getJSONObject("pagination");
 
-						if (!"false".equals(jsonPagination.getString("next_page")))
-							throw new IOException("result set too big");
+                        if (!"false".equals(jsonPagination.getString("next_page")))
+                            throw new IOException("result set too big");
 
-						final JSONArray jsonOutputs = jsonData.getJSONArray("outputs");
+                        final JSONArray jsonOutputs = jsonData.getJSONArray("outputs");
 
-						final Map<Sha256Hash, Transaction> transactions = new HashMap<Sha256Hash, Transaction>(jsonOutputs.length());
+                        final Map<Sha256Hash, Transaction> transactions = new HashMap<Sha256Hash, Transaction>(jsonOutputs.length());
 
-						for (int i = 0; i < jsonOutputs.length(); i++)
-						{
-							final JSONObject jsonOutput = jsonOutputs.getJSONObject(i);
+                        for (int i = 0; i < jsonOutputs.length(); i++)
+                        {
+                            final JSONObject jsonOutput = jsonOutputs.getJSONObject(i);
 
-							final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
-							final int uxtoIndex = jsonOutput.getInt("transaction_index");
-							final byte[] uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
-							final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
+                            final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
+                            final int uxtoIndex = jsonOutput.getInt("transaction_index");
+                            final byte[] uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
+                            final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
 
-							Transaction tx = transactions.get(uxtoHash);
-							if (tx == null)
-							{
-								tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, uxtoHash);
-								tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
-								transactions.put(uxtoHash, tx);
-							}
+                            Transaction tx = transactions.get(uxtoHash);
+                            if (tx == null)
+                            {
+                                tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, uxtoHash);
+                                tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
+                                transactions.put(uxtoHash, tx);
+                            }
 
-							if (tx.getOutputs().size() > uxtoIndex)
-								throw new IllegalStateException("cannot reach index " + uxtoIndex + ", tx already has " + tx.getOutputs().size()
-										+ " outputs");
+                            if (tx.getOutputs().size() > uxtoIndex)
+                                throw new IllegalStateException("cannot reach index " + uxtoIndex + ", tx already has " + tx.getOutputs().size()
+                                        + " outputs");
 
-							// fill with dummies
-							while (tx.getOutputs().size() < uxtoIndex)
-								tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
+                            // fill with dummies
+                            while (tx.getOutputs().size() < uxtoIndex)
+                                tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
 
-							// add the real output
-							final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);
-							tx.addOutput(output);
-						}
+                            // add the real output
+                            final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);
+                            tx.addOutput(output);
+                        }
 
-						log.info("fetched unspent outputs from {}", url);
+                        log.info("fetched unspent outputs from {}", url);
 
-						onResult(transactions.values());
-					}
-					else
-					{
-						final String responseMessage = connection.getResponseMessage();
+                        onResult(transactions.values());
+                    }
+                    else
+                    {
+                        final String responseMessage = connection.getResponseMessage();
 
-						log.info("got http error '{}: {}' from {}", responseCode, responseMessage, url);
+                        log.info("got http error '{}: {}' from {}", responseCode, responseMessage, url);
 
-						onFail(R.string.error_http, responseCode, responseMessage);
-					}
-				}
-				catch (final JSONException x)
-				{
-					log.info("problem parsing json from " + url, x);
+                        onFail(R.string.error_http, responseCode, responseMessage);
+                    }
+                }
+                catch (final JSONException x)
+                {
+                    log.info("problem parsing json from " + url, x);
 
-					onFail(R.string.error_parse, x.getMessage());
-				}
-				catch (final IOException x)
-				{
-					log.info("problem querying unspent outputs from " + url, x);
+                    onFail(R.string.error_parse, x.getMessage());
+                }
+                catch (final IOException x)
+                {
+                    log.info("problem querying unspent outputs from " + url, x);
 
-					onFail(R.string.error_io, x.getMessage());
-				}
-				finally
-				{
-					if (reader != null)
-					{
-						try
-						{
-							reader.close();
-						}
-						catch (final IOException x)
-						{
-							// swallow
-						}
-					}
+                    onFail(R.string.error_io, x.getMessage());
+                }
+                finally
+                {
+                    if (reader != null)
+                    {
+                        try
+                        {
+                            reader.close();
+                        }
+                        catch (final IOException x)
+                        {
+                            // swallow
+                        }
+                    }
 
-					if (connection != null)
-						connection.disconnect();
-				}
-			}
-		});
-	}
+                    if (connection != null)
+                        connection.disconnect();
+                }
+            }
+        });
+    }
 
-	protected void onResult(final Collection<Transaction> transactions)
-	{
-		callbackHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				resultCallback.onResult(transactions);
-			}
-		});
-	}
+    protected void onResult(final Collection<Transaction> transactions)
+    {
+        callbackHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                resultCallback.onResult(transactions);
+            }
+        });
+    }
 
-	protected void onFail(final int messageResId, final Object... messageArgs)
-	{
-		callbackHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				resultCallback.onFail(messageResId, messageArgs);
-			}
-		});
-	}
+    protected void onFail(final int messageResId, final Object... messageArgs)
+    {
+        callbackHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                resultCallback.onFail(messageResId, messageArgs);
+            }
+        });
+    }
 
-	private static class FakeTransaction extends Transaction
-	{
-		private final Sha256Hash hash;
+    private static class FakeTransaction extends Transaction
+    {
+        private final Sha256Hash hash;
 
-		public FakeTransaction(final NetworkParameters params, final Sha256Hash hash)
-		{
-			super(params);
-			this.hash = hash;
-		}
+        public FakeTransaction(final NetworkParameters params, final Sha256Hash hash)
+        {
+            super(params);
+            this.hash = hash;
+        }
 
-		@Override
-		public Sha256Hash getHash()
-		{
-			return hash;
-		}
-	}
+        @Override
+        public Sha256Hash getHash()
+        {
+            return hash;
+        }
+    }
 }

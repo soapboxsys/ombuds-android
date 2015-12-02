@@ -27,36 +27,36 @@ import systems.soapbox.ombuds.client_test.R;
  */
 public final class RequestCoinsActivity extends AbstractBindServiceActivity
 {
-	@Override
-	protected void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(final Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.request_coins_content);
-	}
+        setContentView(R.layout.request_coins_content);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(final Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
 
-		return super.onCreateOptionsMenu(menu);
-	}
+        return super.onCreateOptionsMenu(menu);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item)
-	{
-		switch (item.getItemId())
-		{
-			case android.R.id.home:
-				finish();
-				return true;
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
 
-			case R.id.request_coins_options_help:
-				HelpDialogFragment.page(getFragmentManager(), R.string.help_request_coins);
-				return true;
-		}
+            case R.id.request_coins_options_help:
+                HelpDialogFragment.page(getFragmentManager(), R.string.help_request_coins);
+                return true;
+        }
 
-		return super.onOptionsItemSelected(item);
-	}
+        return super.onOptionsItemSelected(item);
+    }
 }

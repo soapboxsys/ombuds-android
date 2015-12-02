@@ -45,85 +45,85 @@ import systems.soapbox.ombuds.client.ui.send.MaintenanceDialogFragment;
  */
 public class MaybeMaintenanceFragment extends Fragment
 {
-	private static final String FRAGMENT_TAG = MaybeMaintenanceFragment.class.getName();
+    private static final String FRAGMENT_TAG = MaybeMaintenanceFragment.class.getName();
 
-	public static void add(final FragmentManager fm)
-	{
-		Fragment fragment = fm.findFragmentByTag(FRAGMENT_TAG);
-		if (fragment == null)
-		{
-			fragment = new MaybeMaintenanceFragment();
-			fm.beginTransaction().add(fragment, FRAGMENT_TAG).commit();
-		}
-	}
+    public static void add(final FragmentManager fm)
+    {
+        Fragment fragment = fm.findFragmentByTag(FRAGMENT_TAG);
+        if (fragment == null)
+        {
+            fragment = new MaybeMaintenanceFragment();
+            fm.beginTransaction().add(fragment, FRAGMENT_TAG).commit();
+        }
+    }
 
-	private Wallet wallet;
-	private LocalBroadcastManager broadcastManager;
-	private boolean dialogWasShown = false;
+    private Wallet wallet;
+    private LocalBroadcastManager broadcastManager;
+    private boolean dialogWasShown = false;
 
-	@Override
-	public void onAttach(final Activity activity)
-	{
-		super.onAttach(activity);
+    @Override
+    public void onAttach(final Activity activity)
+    {
+        super.onAttach(activity);
 
-		final WalletApplication application = ((AbstractWalletActivity) activity).getWalletApplication();
-		this.wallet = application.getWallet();
-		this.broadcastManager = LocalBroadcastManager.getInstance(activity);
-	}
+        final WalletApplication application = ((AbstractWalletActivity) activity).getWalletApplication();
+        this.wallet = application.getWallet();
+        this.broadcastManager = LocalBroadcastManager.getInstance(activity);
+    }
 
-	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(final Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
 
-		setRetainInstance(true);
-	}
+        setRetainInstance(true);
+    }
 
-	@Override
-	public void onResume()
-	{
-		super.onResume();
+    @Override
+    public void onResume()
+    {
+        super.onResume();
 
-		broadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
-	}
+        broadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
+    }
 
-	@Override
-	public void onPause()
-	{
-		broadcastManager.unregisterReceiver(broadcastReceiver);
+    @Override
+    public void onPause()
+    {
+        broadcastManager.unregisterReceiver(broadcastReceiver);
 
-		super.onPause();
-	}
+        super.onPause();
+    }
 
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(final Context context, final Intent broadcast)
-		{
-			final BlockchainState blockchainState = BlockchainState.fromIntent(broadcast);
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(final Context context, final Intent broadcast)
+        {
+            final BlockchainState blockchainState = BlockchainState.fromIntent(broadcast);
 
-			if (!dialogWasShown && !blockchainState.replaying && maintenanceRecommended())
-			{
-				MaintenanceDialogFragment.show(getFragmentManager());
-				dialogWasShown = true;
-			}
-		}
-	};
+            if (!dialogWasShown && !blockchainState.replaying && maintenanceRecommended())
+            {
+                MaintenanceDialogFragment.show(getFragmentManager());
+                dialogWasShown = true;
+            }
+        }
+    };
 
-	private boolean maintenanceRecommended()
-	{
-		try
-		{
-			final ListenableFuture<List<Transaction>> result = wallet.doMaintenance(null, false);
-			return !result.get().isEmpty();
-		}
-		catch (final DeterministicUpgradeRequiresPassword x)
-		{
-			return true;
-		}
-		catch (final Exception x)
-		{
-			throw new RuntimeException(x);
-		}
-	}
+    private boolean maintenanceRecommended()
+    {
+        try
+        {
+            final ListenableFuture<List<Transaction>> result = wallet.doMaintenance(null, false);
+            return !result.get().isEmpty();
+        }
+        catch (final DeterministicUpgradeRequiresPassword x)
+        {
+            return true;
+        }
+        catch (final Exception x)
+        {
+            throw new RuntimeException(x);
+        }
+    }
 }

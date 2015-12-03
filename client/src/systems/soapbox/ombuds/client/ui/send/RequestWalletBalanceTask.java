@@ -17,17 +17,10 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import android.os.Handler;
+import android.os.Looper;
 
-import javax.annotation.Nullable;
+import com.google.common.base.Charsets;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
@@ -42,10 +35,17 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.os.Handler;
-import android.os.Looper;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.google.common.base.Charsets;
+import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.Io;

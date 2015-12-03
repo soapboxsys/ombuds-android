@@ -17,6 +17,21 @@
 
 package systems.soapbox.ombuds.client.util;
 
+import android.app.ActivityManager;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+
+import com.google.common.base.Charsets;
+
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,22 +46,6 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.core.Wallet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import android.app.ActivityManager;
-import android.app.admin.DevicePolicyManager;
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.os.Build;
-
-import com.google.common.base.Charsets;
 
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;

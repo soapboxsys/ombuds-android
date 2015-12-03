@@ -17,18 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.net.InetAddress;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.concurrent.RejectedExecutionException;
-
-import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.VersionMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -54,6 +42,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.VersionMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.InetAddress;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.concurrent.RejectedExecutionException;
+
 import systems.soapbox.ombuds.client.service.BlockchainService;
 import systems.soapbox.ombuds.client.service.BlockchainServiceImpl;
 import systems.soapbox.ombuds.client_test.R;

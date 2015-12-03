@@ -17,14 +17,15 @@
 
 package systems.soapbox.ombuds.client.ui.preference;
 
-import org.bitcoinj.core.VersionMessage;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import org.bitcoinj.core.VersionMessage;
+
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client_test.R;

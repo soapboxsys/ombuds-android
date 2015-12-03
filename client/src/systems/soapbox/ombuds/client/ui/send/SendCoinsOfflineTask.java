@@ -17,6 +17,9 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
@@ -26,9 +29,6 @@ import org.bitcoinj.core.Wallet.CompletionException;
 import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
 import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.crypto.KeyCrypterException;
-
-import android.os.Handler;
-import android.os.Looper;
 
 /**
  * @author Andreas Schildbach

@@ -17,21 +17,22 @@
 
 package systems.soapbox.ombuds.client.util;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import java.util.regex.Matcher;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
-
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+
+import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.MonetaryFormat;
+
+import java.util.regex.Matcher;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.Constants;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * @author Andreas Schildbach

@@ -17,9 +17,6 @@
 
 package systems.soapbox.ombuds.client.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -31,6 +28,10 @@ import android.os.Parcelable;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import systems.soapbox.ombuds.client_test.R;
 
 /**

@@ -17,17 +17,10 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Wallet;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -36,13 +29,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Wallet;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
-import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.WalletApplication;
+import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.service.BlockchainState;
 import systems.soapbox.ombuds.client.service.BlockchainStateLoader;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;

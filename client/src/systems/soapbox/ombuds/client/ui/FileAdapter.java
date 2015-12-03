@@ -17,15 +17,16 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.io.File;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.io.File;
+import java.util.List;
+
 import systems.soapbox.ombuds.client_test.R;
 
 /**

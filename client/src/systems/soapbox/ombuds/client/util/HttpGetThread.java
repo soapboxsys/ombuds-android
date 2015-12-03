@@ -17,6 +17,13 @@
 
 package systems.soapbox.ombuds.client.util;
 
+import android.content.res.AssetManager;
+
+import com.google.common.base.Charsets;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,13 +35,6 @@ import javax.annotation.Nullable;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import android.content.res.AssetManager;
-
-import com.google.common.base.Charsets;
 
 import systems.soapbox.ombuds.client.Constants;
 

@@ -17,42 +17,12 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Arrays;
-
-import javax.annotation.Nullable;
-
-import org.bitcoin.protocols.payments.Protos.Payment;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.InsufficientMoneyException;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionConfidence;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.BalanceType;
-import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
-import org.bitcoinj.core.Wallet.DustySendRequested;
-import org.bitcoinj.core.Wallet.SendRequest;
-import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.KeyChain.KeyPurpose;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.spongycastle.crypto.params.KeyParameter;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.bluetooth.BluetoothAdapter;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -89,6 +59,36 @@ import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import org.bitcoin.protocols.payments.Protos.Payment;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
+import org.bitcoinj.core.Wallet.DustySendRequested;
+import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.KeyChain.KeyPurpose;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.crypto.params.KeyParameter;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Arrays;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;

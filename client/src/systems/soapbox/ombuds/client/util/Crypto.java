@@ -16,14 +16,8 @@
 
 package systems.soapbox.ombuds.client.util;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.security.SecureRandom;
-import java.util.Arrays;
+import com.google.common.base.Charsets;
+import com.google.common.io.BaseEncoding;
 
 import org.spongycastle.crypto.BufferedBlockCipher;
 import org.spongycastle.crypto.CipherParameters;
@@ -36,8 +30,14 @@ import org.spongycastle.crypto.modes.CBCBlockCipher;
 import org.spongycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.spongycastle.crypto.params.ParametersWithIV;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.BaseEncoding;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.security.SecureRandom;
+import java.util.Arrays;
 
 /**
  * This class encrypts and decrypts a string in a manner that is compatible with OpenSSL.

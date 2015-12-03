@@ -17,20 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import org.bitcoinj.core.AbstractWalletEventListener;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
-import org.bitcoinj.uri.BitcoinURI;
-import org.bitcoinj.utils.Threading;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -49,6 +35,21 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import org.bitcoinj.core.AbstractWalletEventListener;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.WalletEventListener;
+import org.bitcoinj.uri.BitcoinURI;
+import org.bitcoinj.utils.Threading;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;

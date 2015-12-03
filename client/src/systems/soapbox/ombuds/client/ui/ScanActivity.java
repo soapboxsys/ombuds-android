@@ -17,13 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.io.IOException;
-import java.util.EnumMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -56,6 +49,13 @@ import com.google.zxing.ResultPoint;
 import com.google.zxing.ResultPointCallback;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.EnumMap;
+import java.util.Map;
 
 import systems.soapbox.ombuds.client.camera.CameraManager;
 import systems.soapbox.ombuds.client_test.R;

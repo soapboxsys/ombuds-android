@@ -17,12 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.List;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -34,6 +28,12 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
+
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
+
+import java.util.List;
 
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.service.BlockchainService;

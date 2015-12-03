@@ -17,14 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Wallet;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -32,6 +24,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Wallet;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.WalletUtils;

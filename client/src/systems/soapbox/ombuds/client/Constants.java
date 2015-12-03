@@ -17,18 +17,18 @@
 
 package systems.soapbox.ombuds.client;
 
-import java.io.File;
+import android.os.Build;
+import android.os.Environment;
+import android.text.format.DateUtils;
+
+import com.google.common.io.BaseEncoding;
 
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 
-import android.os.Build;
-import android.os.Environment;
-import android.text.format.DateUtils;
-
-import com.google.common.io.BaseEncoding;
+import java.io.File;
 
 import systems.soapbox.ombuds.client_test.R;
 

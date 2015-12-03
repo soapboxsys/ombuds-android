@@ -17,8 +17,6 @@
 
 package systems.soapbox.ombuds.client.util;
 
-import javax.annotation.Nullable;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -33,6 +31,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client_test.R;
 
 /**

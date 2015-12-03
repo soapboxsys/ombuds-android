@@ -17,7 +17,12 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.concurrent.RejectedExecutionException;
+import android.content.AsyncTaskLoader;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
@@ -26,12 +31,8 @@ import org.bitcoinj.utils.Threading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.content.AsyncTaskLoader;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.v4.content.LocalBroadcastManager;
+import java.util.concurrent.RejectedExecutionException;
+
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.util.ThrottlingWalletChangeListener;
 

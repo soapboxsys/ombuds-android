@@ -17,13 +17,14 @@
 
 package systems.soapbox.ombuds.client.service;
 
+import android.app.IntentService;
+import android.content.Context;
+import android.content.Intent;
+
 import org.bitcoinj.core.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.IntentService;
-import android.content.Context;
-import android.content.Intent;
 import systems.soapbox.ombuds.client.WalletApplication;
 
 /**

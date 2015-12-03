@@ -17,12 +17,13 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
-import org.bitcoinj.core.VersionedChecksummedBytes;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import org.bitcoinj.core.VersionedChecksummedBytes;
+
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client_test.R;
 

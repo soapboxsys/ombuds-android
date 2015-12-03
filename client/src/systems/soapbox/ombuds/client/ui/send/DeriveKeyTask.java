@@ -17,11 +17,11 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
-import org.bitcoinj.crypto.KeyCrypter;
-import org.spongycastle.crypto.params.KeyParameter;
-
 import android.os.Handler;
 import android.os.Looper;
+
+import org.bitcoinj.crypto.KeyCrypter;
+import org.spongycastle.crypto.params.KeyParameter;
 
 /**
  * @author Andreas Schildbach

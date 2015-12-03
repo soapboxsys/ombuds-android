@@ -17,19 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.security.SecureRandom;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.crypto.KeyCrypter;
-import org.bitcoinj.crypto.KeyCrypterException;
-import org.bitcoinj.crypto.KeyCrypterScrypt;
-import org.bitcoinj.wallet.Protos;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.spongycastle.crypto.params.KeyParameter;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -53,6 +40,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.protobuf.ByteString;
+
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.crypto.KeyCrypter;
+import org.bitcoinj.crypto.KeyCrypterException;
+import org.bitcoinj.crypto.KeyCrypterScrypt;
+import org.bitcoinj.wallet.Protos;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.crypto.params.KeyParameter;
+
+import java.security.SecureRandom;
+
+import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client_test.R;

@@ -17,17 +17,12 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.regex.Pattern;
+import android.content.Context;
+import android.content.DialogInterface.OnClickListener;
 
-import javax.annotation.Nullable;
+import com.google.common.hash.Hashing;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.UninitializedMessageException;
 
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
@@ -50,12 +45,17 @@ import org.bitcoinj.uri.BitcoinURIParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.content.Context;
-import android.content.DialogInterface.OnClickListener;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Pattern;
 
-import com.google.common.hash.Hashing;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.UninitializedMessageException;
+import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.data.PaymentIntent;

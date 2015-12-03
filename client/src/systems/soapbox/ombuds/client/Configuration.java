@@ -17,19 +17,18 @@
 
 package systems.soapbox.ombuds.client;
 
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.text.format.DateUtils;
 
 import com.google.common.base.Strings;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import systems.soapbox.ombuds.client_test.R;
 

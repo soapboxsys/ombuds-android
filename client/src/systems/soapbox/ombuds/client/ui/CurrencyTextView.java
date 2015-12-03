@@ -17,9 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
-
 import android.content.Context;
 import android.graphics.Paint;
 import android.text.style.ForegroundColorSpan;
@@ -27,6 +24,10 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.MonetaryFormat;
+
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.MonetarySpannable;
 import systems.soapbox.ombuds.client_test.R;

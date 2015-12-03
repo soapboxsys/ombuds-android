@@ -17,11 +17,10 @@
 
 package systems.soapbox.ombuds.client.data;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import java.util.Arrays;
-
-import javax.annotation.Nullable;
+import com.google.common.io.BaseEncoding;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
@@ -38,14 +37,15 @@ import org.bitcoinj.uri.BitcoinURI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.util.Arrays;
 
-import com.google.common.io.BaseEncoding;
+import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.Bluetooth;
 import systems.soapbox.ombuds.client.util.GenericUtils;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * @author Andreas Schildbach

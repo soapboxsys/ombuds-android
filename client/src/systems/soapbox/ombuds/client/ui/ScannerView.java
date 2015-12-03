@@ -17,10 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -32,6 +28,10 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.google.zxing.ResultPoint;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import systems.soapbox.ombuds.client_test.R;
 

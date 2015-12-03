@@ -17,9 +17,10 @@
 
 package systems.soapbox.ombuds.client.ui.preference;
 
+import android.view.MenuItem;
+
 import java.util.List;
 
-import android.view.MenuItem;
 import systems.soapbox.ombuds.client_test.R;
 
 /**

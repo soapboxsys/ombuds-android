@@ -17,11 +17,11 @@
 
 package systems.soapbox.ombuds.client.service;
 
+import android.content.Intent;
+
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
-
-import android.content.Intent;
 
 /**
  * @author Andreas Schildbach

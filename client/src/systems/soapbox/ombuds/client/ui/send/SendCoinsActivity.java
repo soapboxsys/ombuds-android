@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client.ui.HelpDialogFragment;

@@ -17,6 +17,18 @@
 
 package systems.soapbox.ombuds.client.offline;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
+import android.os.Looper;
+
+import org.bitcoin.protocols.payments.Protos;
+import org.bitcoin.protocols.payments.Protos.Payment;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -27,17 +39,6 @@ import java.net.URL;
 
 import javax.annotation.Nullable;
 
-import org.bitcoin.protocols.payments.Protos;
-import org.bitcoin.protocols.payments.Protos.Payment;
-import org.bitcoinj.protocols.payments.PaymentProtocol;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.os.Handler;
-import android.os.Looper;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.Bluetooth;
 import systems.soapbox.ombuds.client_test.R;

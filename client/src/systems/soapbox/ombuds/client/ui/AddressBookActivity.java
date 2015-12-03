@@ -17,15 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.crypto.DeterministicKey;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -39,6 +30,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.common.collect.Iterables;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.crypto.DeterministicKey;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.ViewPagerTabs;

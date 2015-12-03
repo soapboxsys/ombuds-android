@@ -17,9 +17,6 @@
 
 package systems.soapbox.ombuds.client;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -28,6 +25,9 @@ import android.database.MatrixCursor.RowBuilder;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * @author Andreas Schildbach

@@ -17,11 +17,12 @@
 
 package systems.soapbox.ombuds.client.ui;
 
+import android.app.Activity;
+import android.os.Bundle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.Activity;
-import android.os.Bundle;
 import systems.soapbox.ombuds.client.WalletApplication;
 
 /**

@@ -17,17 +17,17 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import javax.annotation.Nullable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.common.base.Objects;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.WrongNetworkException;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.common.base.Objects;
+import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.WalletUtils;

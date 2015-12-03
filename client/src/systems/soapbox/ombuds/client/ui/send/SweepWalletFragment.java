@@ -17,32 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
-import static com.google.common.base.Preconditions.checkState;
-
-import java.util.Collection;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.DumpedPrivateKey;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionConfidence;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.BalanceType;
-import org.bitcoinj.core.Wallet.SendRequest;
-import org.bitcoinj.crypto.BIP38PrivateKey;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.KeyChainGroup;
-import org.bitcoinj.wallet.WalletTransaction;
-import org.bitcoinj.wallet.WalletTransaction.Pool;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -67,6 +41,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.DumpedPrivateKey;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.crypto.BIP38PrivateKey;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.KeyChainGroup;
+import org.bitcoinj.wallet.WalletTransaction;
+import org.bitcoinj.wallet.WalletTransaction.Pool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
@@ -80,6 +79,8 @@ import systems.soapbox.ombuds.client.ui.TransactionsAdapter;
 import systems.soapbox.ombuds.client.util.MonetarySpannable;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;
+
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Andreas Schildbach

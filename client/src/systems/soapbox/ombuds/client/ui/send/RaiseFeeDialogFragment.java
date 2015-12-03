@@ -17,22 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.SendRequest;
-import org.bitcoinj.crypto.KeyCrypterException;
-import org.bitcoinj.wallet.KeyChain.KeyPurpose;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.spongycastle.crypto.params.KeyParameter;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -53,6 +37,21 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.crypto.KeyCrypterException;
+import org.bitcoinj.wallet.KeyChain.KeyPurpose;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.crypto.params.KeyParameter;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
@@ -60,6 +59,8 @@ import systems.soapbox.ombuds.client.ui.AbstractWalletActivity;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach

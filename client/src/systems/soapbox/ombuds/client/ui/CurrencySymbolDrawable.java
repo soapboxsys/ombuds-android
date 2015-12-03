@@ -21,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+
 import systems.soapbox.ombuds.client.Constants;
 
 /**

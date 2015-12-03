@@ -17,21 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui.send;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.crypto.KeyCrypterException;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.spongycastle.crypto.params.KeyParameter;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -55,6 +40,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.common.util.concurrent.ListenableFuture;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.crypto.KeyCrypterException;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.crypto.params.KeyParameter;
+
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.ui.AbstractWalletActivity;

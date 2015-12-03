@@ -17,13 +17,14 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import javax.annotation.Nullable;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.service.BlockchainService;
 import systems.soapbox.ombuds.client.service.BlockchainServiceImpl;
 

@@ -17,12 +17,15 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nullable;
+import android.content.Context;
+import android.graphics.Typeface;
+import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
@@ -33,15 +36,13 @@ import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.utils.MonetaryFormat;
 
-import android.content.Context;
-import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;

@@ -17,13 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui.preference;
 
-import java.io.IOException;
-import java.util.Locale;
-
-import org.bitcoinj.crypto.DeterministicKey;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -31,6 +24,14 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+
+import org.bitcoinj.crypto.DeterministicKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Locale;
+
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;

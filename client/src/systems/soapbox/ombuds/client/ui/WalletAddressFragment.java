@@ -17,18 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.atomic.AtomicReference;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.uri.BitcoinURI;
-import org.bitcoinj.utils.Threading;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -51,6 +39,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.uri.BitcoinURI;
+import org.bitcoinj.utils.Threading;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
+
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.util.Qr;

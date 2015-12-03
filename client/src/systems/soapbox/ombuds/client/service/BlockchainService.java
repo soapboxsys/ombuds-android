@@ -17,12 +17,12 @@
 
 package systems.soapbox.ombuds.client.service;
 
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.StoredBlock;
+
 import java.util.List;
 
 import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.StoredBlock;
 
 /**
  * @author Andreas Schildbach

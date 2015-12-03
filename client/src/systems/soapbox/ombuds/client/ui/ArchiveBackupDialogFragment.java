@@ -17,11 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import java.io.File;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -31,6 +26,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.Toast;
 import systems.soapbox.ombuds.client.util.WholeStringBuilder;

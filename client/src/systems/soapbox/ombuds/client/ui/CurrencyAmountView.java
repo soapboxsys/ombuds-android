@@ -17,12 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Paint;
@@ -40,6 +34,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.MonetaryFormat;
+
+import javax.annotation.Nullable;
+
 import systems.soapbox.ombuds.client.util.GenericUtils;
 import systems.soapbox.ombuds.client.util.MonetarySpannable;
 import systems.soapbox.ombuds.client_test.R;

@@ -17,8 +17,6 @@
 
 package systems.soapbox.ombuds.client.ui;
 
-import org.bitcoinj.core.Address;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -31,6 +29,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.bitcoinj.core.Address;
+
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;

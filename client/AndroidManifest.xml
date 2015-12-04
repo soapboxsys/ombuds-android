@@ -59,7 +59,7 @@
             android:configChanges="keyboard|keyboardHidden"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/My.Theme" />
+            android:theme="@style/Theme.Ombuds" />
 
         <activity-alias
             android:name="systems.soapbox.ombuds.client.WalletActivity"
@@ -76,7 +76,7 @@
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/send_coins_activity_title"
             android:screenOrientation="behind"
-            android:theme="@style/My.Theme.ChildActivity"
+            android:theme="@style/Theme.Ombuds"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter android:label="@string/send_coins_activity_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -104,20 +104,20 @@
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/request_coins_activity_title"
             android:screenOrientation="behind"
-            android:theme="@style/My.Theme.ChildActivity"
+            android:theme="@style/Theme.Ombuds"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.AddressBookActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/address_book_activity_title"
             android:screenOrientation="behind"
-            android:theme="@style/My.Theme.ChildActivity" />
+            android:theme="@style/Theme.Ombuds" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.NetworkMonitorActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/network_monitor_activity_title"
             android:screenOrientation="behind"
-            android:theme="@style/My.Theme.ChildActivity" />
+            android:theme="@style/Theme.Ombuds" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.preference.PreferenceActivity"
             android:label="@string/preferences_activity_title"
@@ -147,7 +147,7 @@
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/sweep_wallet_activity_title"
             android:screenOrientation="behind"
-            android:theme="@style/My.Theme.ChildActivity"
+            android:theme="@style/Theme.Ombuds"
             android:windowSoftInputMode="adjustResize" />
 
         <provider

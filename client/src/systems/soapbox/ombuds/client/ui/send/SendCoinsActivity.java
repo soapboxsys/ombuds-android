@@ -20,6 +20,7 @@ package systems.soapbox.ombuds.client.ui.send;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -48,6 +49,8 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.send_coins_content);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getWalletApplication().startBlockchainService(false);
     }

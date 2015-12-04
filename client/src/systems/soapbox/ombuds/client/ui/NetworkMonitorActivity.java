@@ -22,6 +22,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import systems.soapbox.ombuds.client.util.ViewPagerTabs;
@@ -41,6 +42,8 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.network_monitor_content);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final ViewPager pager = (ViewPager) findViewById(R.id.network_monitor_pager);
 

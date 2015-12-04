@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,8 @@ public final class AddressBookActivity extends AbstractWalletActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.address_book_content);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final FragmentManager fragmentManager = getFragmentManager();
 

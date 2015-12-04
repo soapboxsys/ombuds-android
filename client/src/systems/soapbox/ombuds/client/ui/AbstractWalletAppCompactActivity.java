@@ -28,7 +28,7 @@ import systems.soapbox.ombuds.client.WalletApplication;
 /**
  * @author Andreas Schildbach
  */
-public abstract class AbstractWalletActivity extends AppCompatActivity
+public abstract class AbstractWalletAppCompactActivity extends AppCompatActivity
 {
     private WalletApplication application;
 

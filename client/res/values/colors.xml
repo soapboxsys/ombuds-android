@@ -32,4 +32,13 @@
     <color name="scan_result_view">#b0000000</color>
     <color name="scan_result_dots">#c099cc00</color>
 
+
+    <!-- New Colors ; Alex -->
+    <color name="theme_primary">#00BCD4</color>
+    <color name="theme_primary_dark">#0097A7</color>
+    <color name="theme_primary_dark2">#006064</color>
+    <color name="theme_accent">#006064</color>
+
+    <color name="control_highlight">#8fff</color>
+
 </resources>

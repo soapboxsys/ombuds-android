@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <include layout="@layout/toolbar" />
+
     <systems.soapbox.ombuds.client.util.ViewPagerTabs
         android:id="@+id/address_book_pager_tabs"
         android:layout_width="match_parent"

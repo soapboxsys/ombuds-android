@@ -18,6 +18,7 @@
 package systems.soapbox.ombuds.client.ui;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -34,6 +35,8 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.request_coins_content);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

@@ -33,6 +33,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -109,6 +110,7 @@ public final class WalletActivity extends AbstractWalletActivity
         wallet = application.getWallet();
 
         setContentView(R.layout.wallet_content);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         if (savedInstanceState == null)
             checkAlerts();

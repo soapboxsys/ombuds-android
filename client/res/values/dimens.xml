@@ -21,4 +21,7 @@
     <dimen name="request_coins_qr_size">128dp</dimen>
     <dimen name="bitmap_dialog_qr_size">224dp</dimen>
 
+    <!-- New Dimensions ; Alex -->
+    <dimen name="toolbar_elevation">4dp</dimen>
+
 </resources>

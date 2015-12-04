@@ -20,6 +20,7 @@ package systems.soapbox.ombuds.client.ui.send;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import org.bitcoinj.core.VersionedChecksummedBytes;
@@ -52,6 +53,8 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sweep_wallet_content);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getWalletApplication().startBlockchainService(false);
     }

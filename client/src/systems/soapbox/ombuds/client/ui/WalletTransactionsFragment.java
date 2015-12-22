@@ -154,7 +154,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
     {
         super.onCreate(savedInstanceState);
 
-        setRetainInstance(true);
+        setRetainInstance(false);   // FragmentPagerAdapter will not accept a 'true' value
         setHasOptionsMenu(true);
 
         adapter = new TransactionsAdapter(activity, wallet, true, application.maxConnectedPeers(), this);

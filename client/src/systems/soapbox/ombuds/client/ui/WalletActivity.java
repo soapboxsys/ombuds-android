@@ -33,6 +33,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -72,6 +74,7 @@ import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
+import systems.soapbox.ombuds.client.ui.omb.OmbudsPagerAdapter;
 import systems.soapbox.ombuds.client.ui.preference.PreferenceActivity;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
 import systems.soapbox.ombuds.client.ui.send.SweepWalletActivity;
@@ -109,8 +112,9 @@ public final class WalletActivity extends AbstractWalletActivity
         config = application.getConfiguration();
         wallet = application.getWallet();
 
-        setContentView(R.layout.wallet_content);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setContentView(R.layout.activity_ombuds);
+        setupActionBar();
+        setupTabs();
 
         if (savedInstanceState == null)
             checkAlerts();
@@ -118,6 +122,40 @@ public final class WalletActivity extends AbstractWalletActivity
         config.touchLastUsed();
 
         MaybeMaintenanceFragment.add(getFragmentManager());
+    }
+
+    private void setupActionBar() {
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+    }
+
+    private void setupTabs() {
+        // Setup view pager
+        ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);
+        viewpager.setAdapter(new OmbudsPagerAdapter(this, getFragmentManager()));
+        viewpager.setOffscreenPageLimit(OmbudsPagerAdapter.NUM_ITEMS);
+        updatePage(viewpager.getCurrentItem());
+
+        // Setup tab layout
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewpager);
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                updatePage(i);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
+    }
+
+    private void updatePage(int selectedPage) {
+        // TODO updateFab()
     }
 
     @Override

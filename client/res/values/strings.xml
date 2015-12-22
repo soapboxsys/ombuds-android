@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+    <!-- soapboxsys/ombuds-android Resources -->
+
+    <string name="all_frag">All</string>
+    <string name="watching_frag">Watching</string>
+    <string name="profile_frag">Profile</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- schildbach/bitcoin-wallet Resources-->
 
     <string name="toast_wallet_reset">Your wallet was reset!\nIt will take some time to recover.</string>
     <string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u&gt;safety notes&lt;/u&gt;.</string>

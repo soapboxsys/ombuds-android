@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
@@ -47,6 +48,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.common.base.Charsets;
+import com.gordonwong.materialsheetfab.MaterialSheetFab;
+import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
@@ -75,6 +78,7 @@ import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
 import systems.soapbox.ombuds.client.ui.omb.OmbudsPagerAdapter;
+import systems.soapbox.ombuds.client.ui.omb.SendFab;
 import systems.soapbox.ombuds.client.ui.preference.PreferenceActivity;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
 import systems.soapbox.ombuds.client.ui.send.SweepWalletActivity;
@@ -99,6 +103,8 @@ public final class WalletActivity extends AbstractWalletActivity
     private Configuration config;
     private Wallet wallet;
 
+    private MaterialSheetFab materialSheetFab;
+
     private Handler handler = new Handler();
 
     private static final int REQUEST_CODE_SCAN = 0;
@@ -114,6 +120,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
         setContentView(R.layout.activity_ombuds);
         setupActionBar();
+        setupFab();
         setupTabs();
 
         if (savedInstanceState == null)
@@ -128,6 +135,54 @@ public final class WalletActivity extends AbstractWalletActivity
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
     }
 
+    private void setupFab() {
+        SendFab fab = (SendFab) findViewById(R.id.fab);
+        View sheetView = findViewById(R.id.fab_sheet);
+        View overlay = findViewById(R.id.overlay);
+        int sheetColor = ContextCompat.getColor(this, R.color.background_card);
+        int fabColor = ContextCompat.getColor(this, R.color.theme_accent);
+
+        // Create material sheet FAB
+        materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
+
+        // Set material sheet item click listeners
+        final View sendCoinButton = findViewById(R.id.fab_sheet_item_send_coin);
+        sendCoinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                handleSendCoins();
+                materialSheetFab.hideSheet();
+            }
+        });
+
+        final View requestCoinButton = findViewById(R.id.fab_sheet_item_request_coin);
+        requestCoinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                handleRequestCoins();
+                materialSheetFab.hideSheet();
+            }
+        });
+
+        final View scanButton = findViewById(R.id.fab_sheet_item_scan);
+        scanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                handleScan();
+                materialSheetFab.hideSheet();
+            }
+        });
+
+        final View createBulletinButton = findViewById(R.id.fab_sheet_item_create_bulletin);
+        createBulletinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+//                handleCreateBulletin();
+                materialSheetFab.hideSheet();
+            }
+        });
+    }
+
     private void setupTabs() {
         // Setup view pager
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);
@@ -136,8 +191,11 @@ public final class WalletActivity extends AbstractWalletActivity
         updatePage(viewpager.getCurrentItem());
 
         // Setup tab layout
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewpager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_public_white_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_star_white_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_person_white_24dp);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -146,6 +204,7 @@ public final class WalletActivity extends AbstractWalletActivity
             @Override
             public void onPageSelected(int i) {
                 updatePage(i);
+//                tabLayout.getTabAt(0).setIcon(R.drawable.ic_add_grey_600_24dp);
             }
 
             @Override
@@ -155,7 +214,12 @@ public final class WalletActivity extends AbstractWalletActivity
     }
 
     private void updatePage(int selectedPage) {
-        // TODO updateFab()
+        updateFab(selectedPage);
+    }
+
+    private void updateFab(int selectedPage) {
+        materialSheetFab.showFab();
+//        materialSheetFab.showFab(0, -getResources().getDimensionPixelSize(R.dimen.snackbar_height));
     }
 
     @Override
@@ -217,6 +281,15 @@ public final class WalletActivity extends AbstractWalletActivity
                     dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
                 }
             }.parse();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (materialSheetFab.isSheetVisible()) {
+            materialSheetFab.hideSheet();
+        } else {
+            super.onBackPressed();
         }
     }
 

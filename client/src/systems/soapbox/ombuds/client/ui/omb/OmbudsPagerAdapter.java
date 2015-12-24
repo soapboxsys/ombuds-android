@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.text.style.DynamicDrawableSpan;
+import android.text.style.ImageSpan;
 
 import systems.soapbox.ombuds.client_test.R;
 
@@ -42,11 +44,11 @@ public class OmbudsPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case ALL_POS:
-                return context.getString(R.string.all_frag);
+//                return context.getString(R.string.all_frag);
             case WATCHING_POS:
-                return context.getString(R.string.watching_frag);
+//                return context.getString(R.string.watching_frag);
             case PROFILE_POS:
-                return context.getString(R.string.profile_frag);
+//                return context.getString(R.string.profile_frag);
             default:
                 return "";
         }

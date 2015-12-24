@@ -13,8 +13,10 @@
 
     <!-- background -->
     <color name="bg_bright">#ffffffff</color>
-    <color name="bg_less_bright">#ffe8e8f0</color>
-    <color name="bg_panel">#fff2f2f8</color>
+    <!--<color name="bg_less_bright">#ffe8e8f0</color>-->
+    <color name="bg_less_bright">#ecf0f1</color>
+    <color name="bg_panel">@android:color/white</color>
+    <!--<color name="bg_panel">#bdc3c7</color>-->
     <color name="bg_form">@android:color/white</color>
     <color name="bg_list">#40ffffff</color>
     <color name="bg_list_selected">#40808090</color>
@@ -33,12 +35,30 @@
     <color name="scan_result_dots">#c099cc00</color>
 
 
-    <!-- New Colors ; Alex -->
-    <color name="theme_primary">#00BCD4</color>
-    <color name="theme_primary_dark">#0097A7</color>
-    <color name="theme_primary_dark2">#006064</color>
-    <color name="theme_accent">#006064</color>
+    <!-- New Colors ; Ombuds -->
+    <color name="theme_primary">#1bbbd9</color>
+    <color name="theme_primary_dark">#1594ac</color>
+    <color name="theme_primary_dark2">#138095</color>
+    <color name="theme_accent">#e74079</color>
+
+    <color name="green_light">#1bd998</color>
+    <color name="green_dark">#15ac78</color>
+    <color name="red_light">#e74c3c</color>
+    <color name="red_dark">#c0392b</color>
 
     <color name="control_highlight">#8fff</color>
+
+    <color name="background_card">#fff</color>
+    <color name="background_snackbar">#323232</color>
+
+    <color name="text_black_87">#de000000</color>
+    <color name="text_white_87">#deFFFFFF</color>
+
+    <color name="one">#1bbbd9</color>
+    <color name="two">#e74079</color>
+    <color name="three">#1bd998</color>
+    <color name="four">#15ac78</color>
+    <color name="five">#e74c3c</color>
+    <color name="six">#c0392b</color>
 
 </resources>

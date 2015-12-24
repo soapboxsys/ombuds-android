@@ -11,12 +11,12 @@ import systems.soapbox.ombuds.client_test.R;
 /**
  * Created by askuck on 12/22/15.
  */
-public class ProfileFragment extends Fragment {
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
+public class ExploreProfileFragment extends Fragment {
+    public static ExploreProfileFragment newInstance() {
+        return new ExploreProfileFragment();
     }
 
-    public ProfileFragment() {
+    public ExploreProfileFragment() {
         // Required empty public constructor
     }
 

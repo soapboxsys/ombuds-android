@@ -49,7 +49,6 @@ import android.widget.TextView;
 
 import com.google.common.base.Charsets;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
-import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
@@ -77,7 +76,7 @@ import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
-import systems.soapbox.ombuds.client.ui.omb.OmbudsPagerAdapter;
+import systems.soapbox.ombuds.client.ui.omb.ExplorePagerAdapter;
 import systems.soapbox.ombuds.client.ui.omb.SendFab;
 import systems.soapbox.ombuds.client.ui.preference.PreferenceActivity;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
@@ -186,8 +185,8 @@ public final class WalletActivity extends AbstractWalletActivity
     private void setupTabs() {
         // Setup view pager
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);
-        viewpager.setAdapter(new OmbudsPagerAdapter(this, getFragmentManager()));
-        viewpager.setOffscreenPageLimit(OmbudsPagerAdapter.NUM_ITEMS);
+        viewpager.setAdapter(new ExplorePagerAdapter(this, getFragmentManager()));
+        viewpager.setOffscreenPageLimit(ExplorePagerAdapter.NUM_ITEMS);
         updatePage(viewpager.getCurrentItem());
 
         // Setup tab layout

@@ -77,6 +77,7 @@ import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
 import systems.soapbox.ombuds.client.ui.omb.ExplorePagerAdapter;
+import systems.soapbox.ombuds.client.ui.omb.SendBulletinActivity;
 import systems.soapbox.ombuds.client.ui.omb.SendFab;
 import systems.soapbox.ombuds.client.ui.preference.PreferenceActivity;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
@@ -176,7 +177,7 @@ public final class WalletActivity extends AbstractWalletActivity
         createBulletinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-//                handleCreateBulletin();
+                handleSendBulletin();
                 materialSheetFab.hideSheet();
             }
         });
@@ -389,6 +390,11 @@ public final class WalletActivity extends AbstractWalletActivity
     public void handleScan()
     {
         startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
+    }
+
+    public void handleSendBulletin() {
+        startActivity(new Intent(this, SendBulletinActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void handleBackupWallet()

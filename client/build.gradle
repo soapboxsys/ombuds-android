@@ -22,6 +22,7 @@ dependencies {
     compile 'com.github.tony19:logback-android-core:1.1.1-3'
     compile 'com.google.code.findbugs:jsr305:2.0.3'
     compile 'com.gordonwong:material-sheet-fab:1.2'
+    compile 'com.apradanas.simplelinkabletext:library:1.0.3@aar'    // ombuds
 }
 
 ext {

@@ -24,9 +24,10 @@
         android:visible="@bool/wallet_actions_top"/>
     <item
         android:id="@+id/wallet_options_address_book"
-        android:icon="@drawable/ic_local_offer_white_24dp"
-        app:showAsAction="ifRoom|withText"
+        app:showAsAction="never"
         android:title="@string/address_book_activity_title"/>
+
+
     <item
         app:showAsAction="never"
         android:title="@string/wallet_options_safety_menu">

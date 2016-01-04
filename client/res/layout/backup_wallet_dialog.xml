@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/backup_wallet_dialog_password_mismatch"
-                android:textColor="@color/fg_error"
+                android:textColor="@color/red_error"
                 android:textStyle="bold"
                 android:visibility="invisible" />
         </LinearLayout>

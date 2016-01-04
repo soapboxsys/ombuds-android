@@ -136,7 +136,7 @@
                 android:layout_gravity="left|top"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textColor="@color/fg_error"
+                android:textColor="@color/red_error"
                 android:textSize="@dimen/font_size_small" />
         </LinearLayout>
     </LinearLayout>

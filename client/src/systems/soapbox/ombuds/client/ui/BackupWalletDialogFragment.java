@@ -232,12 +232,12 @@ public class BackupWalletDialogFragment extends DialogFragment
         if (passwordLength < 6)
         {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.password_strength_weak));
         }
         else if (passwordLength < 8)
         {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.password_strength_fair));
         }
         else if (passwordLength < 10)
         {
@@ -247,7 +247,7 @@ public class BackupWalletDialogFragment extends DialogFragment
         else
         {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.password_strength_strong));
         }
 
         final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();

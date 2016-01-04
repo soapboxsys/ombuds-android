@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/private_key_bad_password"
-                android:textColor="@color/fg_error"
+                android:textColor="@color/red_error"
                 android:textStyle="bold"
                 android:visibility="invisible" />
         </LinearLayout>

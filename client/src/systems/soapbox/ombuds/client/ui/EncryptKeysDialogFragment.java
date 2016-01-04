@@ -331,12 +331,12 @@ public class EncryptKeysDialogFragment extends DialogFragment
         if (passwordLength < 4)
         {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.password_strength_weak));
         }
         else if (passwordLength < 6)
         {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.password_strength_fair));
         }
         else if (passwordLength < 8)
         {
@@ -346,7 +346,7 @@ public class EncryptKeysDialogFragment extends DialogFragment
         else
         {
             passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.password_strength_strong));
         }
 
         showView.setEnabled(state == State.INPUT);

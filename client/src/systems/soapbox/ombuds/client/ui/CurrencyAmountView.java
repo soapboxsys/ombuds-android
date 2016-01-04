@@ -89,7 +89,7 @@ public final class CurrencyAmountView extends FrameLayout
         final Resources resources = context.getResources();
         significantColor = resources.getColor(R.color.fg_significant);
         lessSignificantColor = resources.getColor(R.color.fg_less_significant);
-        errorColor = resources.getColor(R.color.fg_error);
+        errorColor = resources.getColor(R.color.red_error);
         deleteButtonDrawable = resources.getDrawable(R.drawable.ic_clear_grey600_24dp);
     }
 

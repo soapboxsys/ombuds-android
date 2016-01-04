@@ -5,9 +5,6 @@
     <color name="fg_significant">#ff000000</color>
     <color name="fg_less_significant">#ff666666</color>
     <color name="fg_insignificant">#ffbbbbbb</color>
-    <color name="fg_value_positive">#ff008000</color>
-    <color name="fg_value_negative">#ff990000</color>
-    <color name="fg_error">#ffff0000</color>
     <color name="fg_network_significant">#ffffffff</color>
     <color name="fg_network_insignificant">#ffa0a0a0</color>
 
@@ -22,30 +19,32 @@
     <color name="bg_list_selected">#40808090</color>
     <color name="bg_dialog_title">@android:color/transparent</color>
 
-    <!-- password strength -->
-    <color name="fg_password_strength_weak">#ff0000</color>
-    <color name="fg_password_strength_fair">#c06000</color>
-    <color name="fg_password_strength_strong">#00a000</color>
 
-    <!-- scanner -->
-    <color name="scan_mask">#60000000</color>
-    <color name="scan_laser">#cc0000</color>
-    <color name="scan_dot">#ff6600</color>
-    <color name="scan_result_view">#b0000000</color>
-    <color name="scan_result_dots">#c099cc00</color>
-
-
-    <!-- New Colors ; Ombuds -->
+    <!-- Ombuds theme -->
     <color name="theme_primary">#1bbbd9</color>
     <color name="theme_primary_dark">#1594ac</color>
-    <color name="theme_primary_dark2">#138095</color>
+    <color name="theme_primary_darker">#138095</color>
     <color name="theme_accent">#e74079</color>
 
+    <!-- Ombuds positive / negative -->
     <color name="green_light">#1bd998</color>
     <color name="green_dark">#15ac78</color>
     <color name="red_light">#e74c3c</color>
     <color name="red_dark">#c0392b</color>
     <color name="red_error">#ffff0000</color>
+
+    <!-- Ombuds scanner -->
+    <color name="scan_mask">#60000000</color>
+    <color name="scan_laser">@color/theme_primary</color>
+    <color name="scan_dot">@color/theme_accent</color>
+    <color name="scan_result_view">#b0000000</color>
+    <color name="scan_result_dots">@color/green_light</color>
+
+    <!-- Ombuds password strength -->
+    <color name="password_strength_weak">@color/red_light</color>
+    <color name="password_strength_fair">@color/red_dark</color>
+    <color name="password_strength_strong">@color/green_light</color>
+
 
     <color name="control_highlight">#8fff</color>
 
@@ -54,12 +53,5 @@
 
     <color name="text_black_87">#de000000</color>
     <color name="text_white_87">#deFFFFFF</color>
-
-    <color name="one">#1bbbd9</color>
-    <color name="two">#e74079</color>
-    <color name="three">#1bd998</color>
-    <color name="four">#15ac78</color>
-    <color name="five">#e74c3c</color>
-    <color name="six">#c0392b</color>
 
 </resources>

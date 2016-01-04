@@ -1129,13 +1129,13 @@ public final class SendCoinsFragment extends Fragment
             {
                 if (paymentIntent.mayEditAddress() && validatedAddress == null && !receivingAddressView.getText().toString().trim().isEmpty())
                 {
-                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
+                    hintView.setTextColor(getResources().getColor(R.color.red_error));
                     hintView.setVisibility(View.VISIBLE);
                     hintView.setText(R.string.send_coins_fragment_receiving_address_error);
                 }
                 else if (dryrunException != null)
                 {
-                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
+                    hintView.setTextColor(getResources().getColor(R.color.red_error));
                     hintView.setVisibility(View.VISIBLE);
                     if (dryrunException instanceof DustySendRequested)
                         hintView.setText(getString(R.string.send_coins_fragment_hint_dusty_send));

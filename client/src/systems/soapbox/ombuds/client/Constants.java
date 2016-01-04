@@ -98,9 +98,6 @@ public final class Constants
     /** User-agent to use for network access. */
     public static final String USER_AGENT = "Bitcoin Wallet";
 
-    /** Donation address for tip/donate action. */
-    public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
-
     /** Recipient e-mail address for reports. */
     public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
 

@@ -25,26 +25,19 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
 
 import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Configuration;
-import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.service.BlockchainState;
 import systems.soapbox.ombuds.client.service.BlockchainStateLoader;
-import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
 import systems.soapbox.ombuds.client_test.R;
 
 /**
@@ -92,14 +85,6 @@ public final class WalletBalanceFragment extends Fragment
     }
 
     @Override
-    public void onCreate(final Bundle savedInstanceState)
-    {
-        setHasOptionsMenu(true);
-
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.wallet_balance_fragment, container, false);
@@ -139,49 +124,6 @@ public final class WalletBalanceFragment extends Fragment
         loaderManager.destroyLoader(ID_BALANCE_LOADER);
 
         super.onPause();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
-    {
-        inflater.inflate(R.menu.wallet_balance_fragment_options, menu);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(final Menu menu)
-    {
-        final boolean hasSomeBalance = balance != null && !balance.isLessThan(SOME_BALANCE_THRESHOLD);
-        menu.findItem(R.id.wallet_balance_options_donate).setVisible(!Constants.TEST && (!installedFromGooglePlay || hasSomeBalance));
-
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.wallet_balance_options_donate:
-                handleDonate();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void handleDonate()
-    {
-        try
-        {
-            SendCoinsActivity.start(activity, PaymentIntent.fromAddress(Constants.DONATION_ADDRESS, getString(R.string.wallet_donate_address_label)));
-        }
-        catch (final AddressFormatException x)
-        {
-            // cannot happen, address is hardcoded
-            throw new RuntimeException(x);
-        }
     }
 
     private void updateView()
@@ -291,7 +233,6 @@ public final class WalletBalanceFragment extends Fragment
         {
             WalletBalanceFragment.this.balance = balance;
 
-            activity.invalidateOptionsMenu();
             updateView();
         }
 

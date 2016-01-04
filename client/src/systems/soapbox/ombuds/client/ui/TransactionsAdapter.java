@@ -136,9 +136,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         colorSignificant = res.getColor(R.color.fg_significant);
         colorLessSignificant = res.getColor(R.color.fg_less_significant);
         colorInsignificant = res.getColor(R.color.fg_insignificant);
-        colorValuePositve = res.getColor(R.color.fg_value_positive);
-        colorValueNegative = res.getColor(R.color.fg_value_negative);
-        colorError = res.getColor(R.color.fg_error);
+        colorValuePositve = res.getColor(R.color.green_dark);
+        colorValueNegative = res.getColor(R.color.red_dark);
+        colorError = res.getColor(R.color.red_error);
         textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
         textInternal = context.getString(R.string.symbol_internal) + " " + context.getString(R.string.wallet_transactions_fragment_internal);
 

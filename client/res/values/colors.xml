@@ -45,6 +45,7 @@
     <color name="green_dark">#15ac78</color>
     <color name="red_light">#e74c3c</color>
     <color name="red_dark">#c0392b</color>
+    <color name="red_error">#ffff0000</color>
 
     <color name="control_highlight">#8fff</color>
 

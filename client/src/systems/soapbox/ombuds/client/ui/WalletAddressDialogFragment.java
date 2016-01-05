@@ -21,6 +21,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import android.widget.TextView;
 import org.bitcoinj.core.Address;
 
 import systems.soapbox.ombuds.client.Constants;
+import systems.soapbox.ombuds.client.util.Toast;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;
 
@@ -102,6 +105,16 @@ public class WalletAddressDialogFragment extends DialogFragment
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, address);
                 startActivity(Intent.createChooser(intent, getString(R.string.bitmap_fragment_share)));
+            }
+        });
+        labelButtonView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(activity.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Ombuds Address", address);
+                clipboard.setPrimaryClip(clip);
+                new Toast(activity).longToast(getString(R.string.toast_address_to_clipboard));
+                return true;
             }
         });
 

@@ -51,6 +51,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
         setContentView(R.layout.send_coins_content);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        super.setAnimateOnPause(true);
 
         getWalletApplication().startBlockchainService(false);
     }
@@ -68,10 +69,6 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
     {
         switch (item.getItemId())
         {
-            case android.R.id.home:
-                finish();
-                return true;
-
             case R.id.send_coins_options_help:
                 HelpDialogFragment.page(getFragmentManager(), R.string.help_send_coins);
                 return true;

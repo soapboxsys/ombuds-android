@@ -327,14 +327,17 @@ public final class WalletActivity extends AbstractWalletActivity
         {
             case R.id.wallet_options_address_book:
                 AddressBookActivity.start(this);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
 
             case R.id.wallet_options_sweep_wallet:
                 SweepWalletActivity.start(this);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
 
             case R.id.wallet_options_network_monitor:
                 startActivity(new Intent(this, NetworkMonitorActivity.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
 
             case R.id.wallet_options_restore_wallet:
@@ -368,16 +371,19 @@ public final class WalletActivity extends AbstractWalletActivity
     public void handleRequestCoins()
     {
         startActivity(new Intent(this, RequestCoinsActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void handleSendCoins()
     {
         startActivity(new Intent(this, SendCoinsActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void handleScan()
     {
         startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void handleSendBulletin() {

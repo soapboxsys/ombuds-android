@@ -55,20 +55,8 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
         setContentView(R.layout.sweep_wallet_content);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        super.setAnimateOnPause(true);
 
         getWalletApplication().startBlockchainService(false);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

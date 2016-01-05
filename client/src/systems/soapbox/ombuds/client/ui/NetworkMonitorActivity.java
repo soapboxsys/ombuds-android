@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import systems.soapbox.ombuds.client.util.ViewPagerTabs;
 import systems.soapbox.ombuds.client_test.R;
@@ -44,6 +43,7 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity
         setContentView(R.layout.network_monitor_content);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        super.setAnimateOnPause(true);
 
         final ViewPager pager = (ViewPager) findViewById(R.id.network_monitor_pager);
 
@@ -69,19 +69,6 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity
             peerListFragment = (PeerListFragment) fm.findFragmentById(R.id.peer_list_fragment);
             blockListFragment = (BlockListFragment) fm.findFragmentById(R.id.block_list_fragment);
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private class PagerAdapter extends FragmentStatePagerAdapter

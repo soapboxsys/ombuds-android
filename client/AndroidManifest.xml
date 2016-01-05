@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="systems.soapbox.ombuds.client_test"
     android:installLocation="internalOnly"
-    android:versionCode="234"
-    android:versionName="4.44-test">
+    android:versionCode="1"
+    android:versionName="0.1-test">
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -49,7 +49,6 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name="systems.soapbox.ombuds.client.WalletApplication"
@@ -76,6 +75,7 @@
 
         <activity
             android:name="systems.soapbox.ombuds.client.ui.send.SendCoinsActivity"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/send_coins_activity_title"
             android:screenOrientation="behind"
@@ -111,6 +111,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
         <activity
             android:name="systems.soapbox.ombuds.client.ui.RequestCoinsActivity"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/request_coins_activity_title"
             android:screenOrientation="behind"
@@ -118,12 +119,14 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.AddressBookActivity"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/address_book_activity_title"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.NetworkMonitorActivity"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/network_monitor_activity_title"
             android:screenOrientation="behind"
@@ -154,6 +157,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.send.SweepWalletActivity"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/sweep_wallet_activity_title"
             android:screenOrientation="behind"

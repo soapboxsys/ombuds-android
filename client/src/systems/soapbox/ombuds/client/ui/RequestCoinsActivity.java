@@ -37,6 +37,7 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
         setContentView(R.layout.request_coins_content);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        super.setAnimateOnPause(true);
     }
 
     @Override
@@ -52,10 +53,6 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
     {
         switch (item.getItemId())
         {
-            case android.R.id.home:
-                finish();
-                return true;
-
             case R.id.request_coins_options_help:
                 HelpDialogFragment.page(getFragmentManager(), R.string.help_request_coins);
                 return true;

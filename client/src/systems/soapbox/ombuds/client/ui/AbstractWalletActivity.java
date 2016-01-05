@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import systems.soapbox.ombuds.client.WalletApplication;
+import systems.soapbox.ombuds.client_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -34,6 +35,8 @@ public abstract class AbstractWalletActivity extends AppCompatActivity
 
     protected static final Logger log = LoggerFactory.getLogger(AbstractWalletActivity.class);
 
+    private boolean animateOnPause = false;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState)
     {
@@ -42,8 +45,20 @@ public abstract class AbstractWalletActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    protected void onPause() {
+        if(animateOnPause) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
+        super.onPause();
+    }
+
     protected WalletApplication getWalletApplication()
     {
         return application;
+    }
+
+    protected void setAnimateOnPause(boolean animate) {
+        this.animateOnPause = animate;
     }
 }

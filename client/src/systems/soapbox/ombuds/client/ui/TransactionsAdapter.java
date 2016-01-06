@@ -53,6 +53,7 @@ import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Constants;
+import systems.soapbox.ombuds.client.data.LocalRecordDbHelper;
 import systems.soapbox.ombuds.client.util.CircularProgressView;
 import systems.soapbox.ombuds.client.util.Formats;
 import systems.soapbox.ombuds.client.util.WalletUtils;
@@ -73,6 +74,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private final boolean useCards;
     private final Wallet wallet;
+    private final LocalRecordDbHelper localRecordDb;
     private final int maxConnectedPeers;
     @Nullable
     private final OnClickListener onClickListener;
@@ -85,7 +87,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private final int colorBackground, colorBackgroundSelected;
     private final int colorSignificant, colorLessSignificant, colorInsignificant;
-    private final int colorValuePositve, colorValueNegative;
+    private final int colorValuePositve, colorValueNegative, colorValueOmbuds;
     private final int colorError;
     private final String textCoinBase;
     private final String textInternal;
@@ -127,6 +129,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         this.useCards = useCards;
         this.wallet = wallet;
+        this.localRecordDb = LocalRecordDbHelper.getInstance(context);
         this.maxConnectedPeers = maxConnectedPeers;
         this.onClickListener = onClickListener;
 
@@ -138,6 +141,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         colorInsignificant = res.getColor(R.color.fg_insignificant);
         colorValuePositve = res.getColor(R.color.green_dark);
         colorValueNegative = res.getColor(R.color.red_dark);
+        colorValueOmbuds = res.getColor(R.color.theme_accent);
         colorError = res.getColor(R.color.red_error);
         textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
         textInternal = context.getString(R.string.symbol_internal) + " " + context.getString(R.string.wallet_transactions_fragment_internal);
@@ -409,7 +413,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             {
                 textColor = colorSignificant;
                 lessSignificantColor = colorLessSignificant;
-                valueColor = txCache.sent ? colorValueNegative : colorValuePositve;
+                if(txCache.sent) {
+                    if(localRecordDb.isRecord(tx.getHash())) {
+                        valueColor = colorValueOmbuds;
+                    } else {
+                        valueColor = colorValueNegative;
+                    }
+                } else {
+                    valueColor = colorValuePositve;
+                }
             }
             else
             {

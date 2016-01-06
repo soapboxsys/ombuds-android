@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
+import systems.soapbox.ombuds.client.data.LocalRecordDbHelper;
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsOfflineTask;
@@ -202,7 +203,7 @@ public class SendBulletinFragment extends Fragment {
         Message mMessage = new Message(messageEdit.getText().toString());
         Timestamp mTimestamp = new Timestamp( System.currentTimeMillis() / 1000 );
         Location mLoc = new Location();
-        Bulletin mBulletin = new Bulletin(mMessage, mTimestamp, mLoc);
+        final Bulletin mBulletin = new Bulletin(mMessage, mTimestamp, mLoc);
 
         BasicEncoder1 mEncorder = new BasicEncoder1();
         OmbudsBuilder ombBuilder = new OmbudsBuilder(Constants.NETWORK_PARAMETERS, mEncorder);
@@ -216,6 +217,7 @@ public class SendBulletinFragment extends Fragment {
             return;
         }
 
+
 //        sendRequest.memo = paymentIntent.memo;
 //        sendRequest.aesKey = encryptionKey;
 
@@ -228,6 +230,8 @@ public class SendBulletinFragment extends Fragment {
 
 //                setState(State.SENDING);
 //                sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+                LocalRecordDbHelper localRecordDb = LocalRecordDbHelper.getInstance(activity);
+                localRecordDb.add(transaction, mBulletin);
 
                 application.broadcastTransaction(sentTransaction);
                 activity.finish();

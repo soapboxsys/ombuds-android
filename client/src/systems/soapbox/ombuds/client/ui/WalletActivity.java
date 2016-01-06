@@ -95,9 +95,7 @@ import systems.soapbox.ombuds.client_test.R;
 public final class WalletActivity extends AbstractWalletActivity
 {
     private static final int DIALOG_RESTORE_WALLET = 0;
-    private static final int DIALOG_TIMESKEW_ALERT = 1;
-    private static final int DIALOG_VERSION_ALERT = 2;
-    private static final int DIALOG_LOW_STORAGE_ALERT = 3;
+    private static final int DIALOG_LOW_STORAGE_ALERT = 1;
 
     private WalletApplication application;
     private Configuration config;
@@ -406,10 +404,6 @@ public final class WalletActivity extends AbstractWalletActivity
     {
         if (id == DIALOG_RESTORE_WALLET)
             return createRestoreWalletDialog();
-        else if (id == DIALOG_TIMESKEW_ALERT)
-            return createTimeskewAlertDialog(args.getLong("diff_minutes"));
-        else if (id == DIALOG_VERSION_ALERT)
-            return createVersionAlertDialog();
         else if (id == DIALOG_LOW_STORAGE_ALERT)
             return createLowStorageAlertDialog();
         else
@@ -601,71 +595,6 @@ public final class WalletActivity extends AbstractWalletActivity
     private void checkAlerts()
     {
         final PackageInfo packageInfo = getWalletApplication().packageInfo();
-        final int versionNameSplit = packageInfo.versionName.indexOf('-');
-        final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : "");
-        final String url = base + "?package=" + packageInfo.packageName + "&current=" + packageInfo.versionCode;
-
-        new HttpGetThread(getAssets(), url, application.httpUserAgent())
-        {
-            @Override
-            protected void handleLine(final String line, final long serverTime)
-            {
-                final int serverVersionCode = Integer.parseInt(line.split("\\s+")[0]);
-
-                log.info("according to \"" + url + "\", strongly recommended minimum app version is " + serverVersionCode);
-
-                if (serverTime > 0)
-                {
-                    final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
-
-                    if (diffMinutes >= 60)
-                    {
-                        log.info("according to \"" + url + "\", system clock is off by " + diffMinutes + " minutes");
-
-                        runOnUiThread(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                final Bundle args = new Bundle();
-                                args.putLong("diff_minutes", diffMinutes);
-                                showDialog(DIALOG_TIMESKEW_ALERT, args);
-                            }
-                        });
-
-                        return;
-                    }
-                }
-
-                if (serverVersionCode > packageInfo.versionCode)
-                {
-                    runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            showDialog(DIALOG_VERSION_ALERT);
-                        }
-                    });
-
-                    return;
-                }
-            }
-
-            @Override
-            protected void handleException(final Exception x)
-            {
-                if (x instanceof UnknownHostException || x instanceof SocketException || x instanceof SocketTimeoutException)
-                {
-                    // swallow
-                    log.debug("problem reading", x);
-                }
-                else
-                {
-                    CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), packageInfo);
-                }
-            }
-        }.start();
 
         if (CrashReporter.hasSavedCrashTrace())
         {
@@ -723,73 +652,6 @@ public final class WalletActivity extends AbstractWalletActivity
 
             dialog.show();
         }
-    }
-
-    private Dialog createTimeskewAlertDialog(final long diffMinutes)
-    {
-        final PackageManager pm = getPackageManager();
-        final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
-
-        final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_timeskew_dialog_title);
-        dialog.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
-
-        if (pm.resolveActivity(settingsIntent, 0) != null)
-        {
-            dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id)
-                {
-                    startActivity(settingsIntent);
-                    finish();
-                }
-            });
-        }
-
-        dialog.setNegativeButton(R.string.button_dismiss, null);
-        return dialog.create();
-    }
-
-    private Dialog createVersionAlertDialog()
-    {
-        final PackageManager pm = getPackageManager();
-        final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
-        final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
-
-        final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_version_dialog_title);
-        final StringBuilder message = new StringBuilder(getString(R.string.wallet_version_dialog_msg));
-        if (Build.VERSION.SDK_INT < Constants.SDK_DEPRECATED_BELOW)
-            message.append("\n\n").append(getString(R.string.wallet_version_dialog_msg_deprecated));
-        dialog.setMessage(message);
-
-        if (pm.resolveActivity(marketIntent, 0) != null)
-        {
-            dialog.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id)
-                {
-                    startActivity(marketIntent);
-                    finish();
-                }
-            });
-        }
-
-        if (pm.resolveActivity(binaryIntent, 0) != null)
-        {
-            dialog.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(final DialogInterface dialog, final int id)
-                {
-                    startActivity(binaryIntent);
-                    finish();
-                }
-            });
-        }
-
-        dialog.setNegativeButton(R.string.button_dismiss, null);
-        return dialog.create();
     }
 
     private void restoreWalletFromEncrypted(final File file, final String password)

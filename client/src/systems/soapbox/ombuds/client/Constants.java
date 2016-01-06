@@ -83,9 +83,6 @@ public final class Constants
     public static final String BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BITEASY_API_URL_PROD
             : BITEASY_API_URL_TEST;
 
-    /** URL to fetch version alerts from. */
-    public static final String VERSION_URL = "https://wallet.schildbach.de/version";
-
     /** MIME type used for transmitting single transactions. */
     public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 

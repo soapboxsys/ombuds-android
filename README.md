@@ -7,7 +7,7 @@ If you would like to try out an early version of the software send alex@soapbox.
 This software requires the [Android SDK](http://developer.android.com/sdk/installing/index.html) and [Gradle](http://gradle.org/gradle-download/) to build. 
 It is easiest if you use [Android Studio](http://developer.android.com/sdk/installing/index.html?pkg=studio) as your build environment.
 
-### Licesnse
+### License
 
 Copyright (C) 2016  Soapbox Systems
 

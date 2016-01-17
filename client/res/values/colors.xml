@@ -54,4 +54,11 @@
     <color name="text_black_87">#de000000</color>
     <color name="text_white_87">#deFFFFFF</color>
 
+    <!-- Search -->
+    <color name="dialog_background">#7f000000</color>
+    <color name="divider">#1f000000</color>
+    <color name="card">#fff</color>
+    <color name="app_body_text_1">#de000000</color>
+    <color name="app_body_text_2">#8a000000</color>
+
 </resources>

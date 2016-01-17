@@ -102,7 +102,7 @@
                         android:textColor="@color/text_white_87"
                         android:drawableLeft="@drawable/ic_create_white_24dp"
                         android:drawableStart="@drawable/ic_create_white_24dp"
-                        android:text="@string/action_create_bulletin" />
+                        android:text="@string/send_bulletin_action_title" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -61,6 +61,7 @@
             android:configChanges="keyboard|keyboardHidden"
             android:exported="true"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing"
             android:theme="@style/Theme.Ombuds" />
 
         <activity-alias
@@ -163,6 +164,22 @@
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="systems.soapbox.ombuds.client.ui.omb.SearchActivity"
+            android:label="@string/search_activity_title"
+            android:theme="@style/Theme.Ombuds.Search"
+            android:launchMode="singleTop"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysVisible">
+            <!-- This Activity handles the search intent -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <!-- Intent filter does not need a category = default, since the system delivers
+                     the ACTION_SEARCH intent explicitly to the searcheable activity,
+                     using component name.
+                  -->
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="systems.soapbox.ombuds.client.AddressBookProvider"

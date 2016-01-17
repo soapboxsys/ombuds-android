@@ -77,6 +77,7 @@ import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
 import systems.soapbox.ombuds.client.ui.omb.ExplorePagerAdapter;
+import systems.soapbox.ombuds.client.ui.omb.SearchActivity;
 import systems.soapbox.ombuds.client.ui.omb.SendBulletinActivity;
 import systems.soapbox.ombuds.client.ui.omb.SendFab;
 import systems.soapbox.ombuds.client.ui.preference.PreferenceActivity;
@@ -323,6 +324,10 @@ public final class WalletActivity extends AbstractWalletActivity
     {
         switch (item.getItemId())
         {
+            case R.id.action_search:
+                startActivity(new Intent(this, SearchActivity.class));
+                return true;
+
             case R.id.wallet_options_address_book:
                 AddressBookActivity.start(this);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

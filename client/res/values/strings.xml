@@ -7,17 +7,20 @@
     <string name="profile_frag">Profile</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="profile_row_payment_received">Payment Received</string>
+    <string name="profile_row_payment_sent">Payment Sent</string>
+    <string name="profile_row_endorsement">Endorsement</string>
+    <string name="profile_row_no_topics">@string/send_bulletin_no_topics</string>
+
     <string name="send_bulletin_action_title">Create bulletin</string>
     <string name="send_bulletin_activity_title">Send Bulletin</string>
     <string name="send_bulletin_no_topics">No topics</string>
     <string name="send_bulletin_message_hint">What\'s happening?</string>
     <string name="send_bulletin_send">Send</string>
 
-
     <string name="search_activity_title">Search</string>
     <string name="search_action_title">Search</string>
     <string name="search_input_hint">Search full relay</string>
-
 
     <string name="toast_address_to_clipboard">Address copied to clipboard.</string>
 

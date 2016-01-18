@@ -1,11 +1,6 @@
 package systems.soapbox.ombuds.client.ui.omb;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.LoaderManager;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -35,16 +30,14 @@ import java.util.regex.Pattern;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.data.LocalRecordDbHelper;
+import systems.soapbox.ombuds.client.memory.ProfileDbHelper;
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsOfflineTask;
 import systems.soapbox.ombuds.client_test.R;
 import systems.soapbox.ombuds.lib.OmbudsBuilder;
-import systems.soapbox.ombuds.lib.OmbudsTransaction;
 import systems.soapbox.ombuds.lib.encode.BasicEncoder1;
 import systems.soapbox.ombuds.lib.encode.MaxSizeException;
-import systems.soapbox.ombuds.lib.encode.UnencodableRecordException;
 import systems.soapbox.ombuds.lib.field.Location;
 import systems.soapbox.ombuds.lib.field.Message;
 import systems.soapbox.ombuds.lib.field.Timestamp;
@@ -230,7 +223,7 @@ public class SendBulletinFragment extends Fragment {
 
 //                setState(State.SENDING);
 //                sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
-                LocalRecordDbHelper localRecordDb = LocalRecordDbHelper.getInstance(activity);
+                ProfileDbHelper localRecordDb = ProfileDbHelper.getInstance(activity);
                 localRecordDb.add(transaction, mBulletin);
 
                 application.broadcastTransaction(sentTransaction);

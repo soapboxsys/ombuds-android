@@ -46,6 +46,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -80,7 +81,8 @@ import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.ui.TransactionsAdapter.Warning;
+import systems.soapbox.ombuds.client.ui.omb.ProfileTransactionsAdapter.Warning;
+import systems.soapbox.ombuds.client.ui.omb.ProfileTransactionsAdapter;
 import systems.soapbox.ombuds.client.ui.send.RaiseFeeDialogFragment;
 import systems.soapbox.ombuds.client.util.BitmapFragment;
 import systems.soapbox.ombuds.client.util.Qr;
@@ -91,7 +93,7 @@ import systems.soapbox.ombuds.client_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class WalletTransactionsFragment extends Fragment implements LoaderCallbacks<List<Transaction>>, TransactionsAdapter.OnClickListener,
+public class WalletTransactionsFragment extends Fragment implements LoaderCallbacks<List<Transaction>>, ProfileTransactionsAdapter.OnClickListener,
         OnSharedPreferenceChangeListener
 {
     public enum Direction
@@ -110,7 +112,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
     private ViewAnimator viewGroup;
     private TextView emptyView;
     private RecyclerView recyclerView;
-    private TransactionsAdapter adapter;
+    private ProfileTransactionsAdapter adapter;
 
     @Nullable
     private Direction direction;
@@ -157,7 +159,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
         setRetainInstance(false);   // FragmentPagerAdapter will not accept a 'true' value
         setHasOptionsMenu(true);
 
-        adapter = new TransactionsAdapter(activity, wallet, true, application.maxConnectedPeers(), this);
+        adapter = new ProfileTransactionsAdapter(activity, wallet, true, application.maxConnectedPeers(), this);
 
         this.direction = null;
     }

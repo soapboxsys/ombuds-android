@@ -30,7 +30,7 @@ public class ExplorePagerAdapter extends FragmentPagerAdapter {
             case WATCHING_POS:
                 return ExploreWatchingFragment.newInstance();
             case PROFILE_POS:
-                return ExploreProfileFragment.newInstance();
+                return ProfileFragment.newInstance();
             default:
                 return null;
         }

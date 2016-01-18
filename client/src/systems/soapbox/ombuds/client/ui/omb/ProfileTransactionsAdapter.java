@@ -1,21 +1,4 @@
-/*
- * Copyright 2011-2015 the original author or authors.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-package systems.soapbox.ombuds.client.ui;
+package systems.soapbox.ombuds.client.ui.omb;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -28,16 +11,13 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.DefaultCoinSelector;
@@ -53,16 +33,22 @@ import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Constants;
+import systems.soapbox.ombuds.client.memory.NotABulletinException;
+import systems.soapbox.ombuds.client.memory.NotAnEndorsementException;
 import systems.soapbox.ombuds.client.memory.ProfileDbHelper;
+import systems.soapbox.ombuds.client.ui.CurrencyTextView;
 import systems.soapbox.ombuds.client.util.CircularProgressView;
 import systems.soapbox.ombuds.client.util.Formats;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.lib.field.Message;
+import systems.soapbox.ombuds.lib.record.Bulletin;
+import systems.soapbox.ombuds.lib.record.Endorsement;
 
 /**
- * @author Andreas Schildbach
+ * Created by askuck on 1/16/16.
  */
-public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class ProfileTransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     public enum Warning
     {
@@ -74,8 +60,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private final boolean useCards;
     private final Wallet wallet;
-    private final ProfileDbHelper localRecordDb;
     private final int maxConnectedPeers;
+    private final ProfileDbHelper profileDb;
     @Nullable
     private final OnClickListener onClickListener;
 
@@ -111,7 +97,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final String addressLabel;
 
         private TransactionCacheEntry(final Coin value, final boolean sent, final boolean showFee, final @Nullable Address address,
-                final @Nullable String addressLabel)
+                                      final @Nullable String addressLabel)
         {
             this.value = value;
             this.sent = sent;
@@ -121,17 +107,17 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public TransactionsAdapter(final Context context, final Wallet wallet, final boolean useCards, final int maxConnectedPeers,
-            final @Nullable OnClickListener onClickListener)
+    public ProfileTransactionsAdapter(final Context context, final Wallet wallet, final boolean useCards, final int maxConnectedPeers,
+                                      final @Nullable OnClickListener onClickListener)
     {
         this.context = context;
         inflater = LayoutInflater.from(context);
 
         this.useCards = useCards;
         this.wallet = wallet;
-        this.localRecordDb = ProfileDbHelper.getInstance(context);
         this.maxConnectedPeers = maxConnectedPeers;
         this.onClickListener = onClickListener;
+        this.profileDb = ProfileDbHelper.getInstance(context);
 
         final Resources res = context.getResources();
         colorBackground = res.getColor(R.color.bg_bright);
@@ -249,14 +235,14 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         {
             if (useCards)
             {
-                final CardView cardView = (CardView) inflater.inflate(R.layout.transaction_row_card, parent, false);
+                final CardView cardView = (CardView) inflater.inflate(R.layout.profile_tx_row_card, parent, false);
                 cardView.setPreventCornerOverlap(false);
                 cardView.setUseCompatPadding(true);
                 return new TransactionViewHolder(cardView);
             }
             else
             {
-                return new TransactionViewHolder(inflater.inflate(R.layout.transaction_row, parent, false));
+                return new TransactionViewHolder(inflater.inflate(R.layout.profile_tx_row, parent, false));
             }
         }
         else if (viewType == VIEW_TYPE_WARNING)
@@ -287,20 +273,20 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(final View v)
                 {
-                    setSelectedItemId(getItemId(transactionHolder.getAdapterPosition()));
+//                    setSelectedItemId(getItemId(transactionHolder.getAdapterPosition()));
                 }
             });
 
             if (onClickListener != null)
             {
-                transactionHolder.menuView.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(final View v)
-                    {
-                        onClickListener.onTransactionMenuClick(v, tx);
-                    }
-                });
+//                transactionHolder.menuView.setOnClickListener(new View.OnClickListener()
+//                {
+//                    @Override
+//                    public void onClick(final View v)
+//                    {
+//                        onClickListener.onTransactionMenuClick(v, tx);
+//                    }
+//                });
             }
         }
         else if (holder instanceof WarningViewHolder)
@@ -337,53 +323,61 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private class TransactionViewHolder extends RecyclerView.ViewHolder
     {
-        private final View extendTimeView;
-        private final TextView fullTimeView;
-        private final View extendAddressView;
-        private final CircularProgressView confidenceCircularNormalView, confidenceCircularSelectedView;
-        private final TextView confidenceTextualNormalView, confidenceTextualSelectedView;
-        private final TextView timeView;
+        private final TextView paymentTypeView;
+        private final CircularProgressView confidenceCircularView;
+        private final TextView confidenceTextualView;
         private final TextView addressView;
+        private final View extendAddressView;
+        private final TextView txInfoView;
+        private final View extendTxInfoView;
+        private final TextView bltnMsgView;
+        private final View extendBltnMsgView;
+        private final TextView timeView;
         private final CurrencyTextView valueView;
-        private final View extendFeeView;
-        private final CurrencyTextView feeView;
-        private final View extendMessageView;
-        private final TextView messageView;
-        private final ImageButton menuView;
 
         private TransactionViewHolder(final View itemView)
         {
             super(itemView);
 
-            extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
-            fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);
-            extendAddressView = itemView.findViewById(R.id.transaction_row_extend_address);
-            confidenceCircularNormalView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
-            confidenceCircularSelectedView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular_selected);
-            confidenceTextualNormalView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
-            confidenceTextualSelectedView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual_selected);
-            timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
-            addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
-            valueView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_value);
-            extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
-            feeView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fee);
-            extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
-            messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
-            menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
+            paymentTypeView = (TextView) itemView.findViewById(R.id.profile_row_payment_type);
+            confidenceCircularView = (CircularProgressView) itemView.findViewById(R.id.profile_row_confidence_circular);
+            confidenceTextualView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
+            timeView = (TextView) itemView.findViewById(R.id.profile_row_time);
+            addressView = (TextView) itemView.findViewById(R.id.profile_row_address);
+            extendAddressView = itemView.findViewById(R.id.profile_row_extend_address);
+            txInfoView = (TextView) itemView.findViewById(R.id.profile_row_tx_info);
+            extendTxInfoView = itemView.findViewById(R.id.profile_row_extend_tx_info);
+            bltnMsgView = (TextView) itemView.findViewById(R.id.profile_row_bulletin_message);
+            extendBltnMsgView = itemView.findViewById(R.id.profile_row_extend_bulletin_message);
+            valueView = (CurrencyTextView) itemView.findViewById(R.id.profile_row_total_value);
+
         }
 
         private void bind(final Transaction tx)
         {
-            if (itemView instanceof CardView)
-                ((CardView) itemView).setCardBackgroundColor(itemView.isActivated() ? colorBackgroundSelected : colorBackground);
+            ((CardView) itemView).setCardBackgroundColor(colorBackground);
 
             final TransactionConfidence confidence = tx.getConfidence();
-            final ConfidenceType confidenceType = confidence.getConfidenceType();
+            final TransactionConfidence.ConfidenceType confidenceType = confidence.getConfidenceType();
             final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
             final boolean isCoinBase = tx.isCoinBase();
             final Transaction.Purpose purpose = tx.getPurpose();
             final Coin fee = tx.getFee();
             final String[] memo = Formats.sanitizeMemo(tx.getMemo());
+
+            Bulletin bltn = null;
+            try {
+                bltn = profileDb.getBulletin(tx.getHash());
+            } catch (NotABulletinException e) {
+                // swallow
+            }
+            Endorsement endo = null;
+            try {
+                endo = profileDb.getEndorsement(tx.getHash());
+            } catch (NotAnEndorsementException e) {
+                // swallow
+            }
+            final boolean isRecord = bltn != null || endo != null;
 
             TransactionCacheEntry txCache = transactionCache.get(tx.getHash());
             if (txCache == null)
@@ -402,8 +396,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 transactionCache.put(tx.getHash(), txCache);
             }
 
+            // color of confidence depending on transaction state
             final int textColor, lessSignificantColor, valueColor;
-            if (confidenceType == ConfidenceType.DEAD)
+            if (confidenceType == TransactionConfidence.ConfidenceType.DEAD)
             {
                 textColor = colorError;
                 lessSignificantColor = colorError;
@@ -414,7 +409,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 textColor = colorSignificant;
                 lessSignificantColor = colorLessSignificant;
                 if(txCache.sent) {
-                    if(localRecordDb.isRecord(tx.getHash())) {
+                    if(isRecord) {
                         valueColor = colorValueOmbuds;
                     } else {
                         valueColor = colorValueNegative;
@@ -430,13 +425,29 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 valueColor = colorInsignificant;
             }
 
+            // payment type
+            paymentTypeView.setVisibility(View.VISIBLE);
+            if(txCache.sent) {
+                if(bltn != null) {
+                    String topicString = Utils.listToHashtagString( Message.topicExtractor(bltn.getMessage()) );
+                    if(topicString.isEmpty())
+                        paymentTypeView.setText(R.string.profile_row_no_topics);
+                    else
+                        paymentTypeView.setText(topicString);
+                }
+                else if(endo != null) {
+                    paymentTypeView.setText(R.string.profile_row_endorsement);
+                }
+                else {
+                    paymentTypeView.setText(R.string.profile_row_payment_sent);
+                }
+            } else {
+                paymentTypeView.setText(R.string.profile_row_payment_received);
+            }
+
             // confidence
-            final CircularProgressView confidenceCircularView = itemView.isActivated() ? confidenceCircularSelectedView
-                    : confidenceCircularNormalView;
-            final TextView confidenceTextualView = itemView.isActivated() ? confidenceTextualSelectedView : confidenceTextualNormalView;
-            (itemView.isActivated() ? confidenceCircularNormalView : confidenceCircularSelectedView).setVisibility(View.INVISIBLE);
-            (itemView.isActivated() ? confidenceTextualNormalView : confidenceTextualSelectedView).setVisibility(View.GONE);
-            if (confidenceType == ConfidenceType.PENDING)
+            final CircularProgressView confidenceCircularView = this.confidenceCircularView;
+            if (confidenceType == TransactionConfidence.ConfidenceType.PENDING)
             {
                 confidenceCircularView.setVisibility(View.VISIBLE);
                 confidenceTextualView.setVisibility(View.GONE);
@@ -447,7 +458,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 confidenceCircularView.setMaxSize(maxConnectedPeers / 2); // magic value
                 confidenceCircularView.setColors(colorInsignificant, Color.TRANSPARENT);
             }
-            else if (confidenceType == ConfidenceType.BUILDING)
+            else if (confidenceType == TransactionConfidence.ConfidenceType.BUILDING)
             {
                 confidenceCircularView.setVisibility(View.VISIBLE);
                 confidenceTextualView.setVisibility(View.GONE);
@@ -459,7 +470,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 confidenceCircularView.setMaxSize(1);
                 confidenceCircularView.setColors(valueColor, Color.TRANSPARENT);
             }
-            else if (confidenceType == ConfidenceType.DEAD)
+            else if (confidenceType == TransactionConfidence.ConfidenceType.DEAD)
             {
                 confidenceCircularView.setVisibility(View.GONE);
                 confidenceTextualView.setVisibility(View.VISIBLE);
@@ -467,32 +478,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 confidenceTextualView.setText(CONFIDENCE_SYMBOL_DEAD);
                 confidenceTextualView.setTextColor(colorError);
             }
-            else
-            {
+            else {
                 confidenceCircularView.setVisibility(View.GONE);
                 confidenceTextualView.setVisibility(View.VISIBLE);
 
                 confidenceTextualView.setText(CONFIDENCE_SYMBOL_UNKNOWN);
                 confidenceTextualView.setTextColor(colorInsignificant);
-            }
-
-            // time
-            final Date time = tx.getUpdateTime();
-            if (!itemView.isActivated())
-            {
-                extendTimeView.setVisibility(View.GONE);
-
-                timeView.setVisibility(View.VISIBLE);
-                timeView.setText(DateUtils.getRelativeTimeSpanString(context, time.getTime()));
-                timeView.setTextColor(textColor);
-            }
-            else
-            {
-                extendTimeView.setVisibility(View.VISIBLE);
-                fullTimeView.setText(DateUtils.formatDateTime(context, time.getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME));
-                fullTimeView.setTextColor(textColor);
-
-                timeView.setVisibility(View.GONE);
             }
 
             // address
@@ -502,13 +493,13 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 addressView.setTypeface(Typeface.DEFAULT_BOLD);
                 addressView.setText(textCoinBase);
             }
-            else if (purpose == Purpose.KEY_ROTATION)
+            else if (purpose == Transaction.Purpose.KEY_ROTATION)
             {
                 addressView.setTextColor(textColor);
                 addressView.setTypeface(Typeface.DEFAULT_BOLD);
                 addressView.setText(textInternal);
             }
-            else if (purpose == Purpose.RAISE_FEE)
+            else if (purpose == Transaction.Purpose.RAISE_FEE)
             {
                 addressView.setText(null);
             }
@@ -537,29 +528,31 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 addressView.setTypeface(Typeface.DEFAULT);
                 addressView.setText("?");
             }
-            addressView.setSingleLine(!itemView.isActivated());
-            extendAddressView.setVisibility(!itemView.isActivated() || purpose != Purpose.RAISE_FEE ? View.VISIBLE : View.GONE);
+            extendAddressView.setVisibility(!isRecord && purpose != Transaction.Purpose.RAISE_FEE ? View.VISIBLE : View.GONE);
 
-            // fee
-            if (txCache.showFee)
-            {
-                extendFeeView
-                        .setVisibility(itemView.isActivated() || (confidenceType == ConfidenceType.PENDING && purpose != Purpose.RAISE_FEE) ? View.VISIBLE
-                                : View.GONE);
-                feeView.setAlwaysSigned(true);
-                feeView.setFormat(format);
-                feeView.setAmount(fee.negate());
+            // record message
+            if(bltn != null) {
+                bltnMsgView.setText(bltn.getMessage().getMsg());
+                extendBltnMsgView.setVisibility(View.VISIBLE);
+            } else if(endo != null) {
+                bltnMsgView.setText(endo.getBulletinId().getHash().toString());
+                extendBltnMsgView.setVisibility(View.VISIBLE);
+            } else {
+                bltnMsgView.setText("");
+                extendBltnMsgView.setVisibility(View.GONE);
             }
-            else
-            {
-                extendFeeView.setVisibility(View.GONE);
-            }
+
+            // time
+            final Date time = tx.getUpdateTime();
+            timeView.setVisibility(View.VISIBLE);
+            timeView.setText(DateUtils.getRelativeTimeSpanString(context, time.getTime()));
+            timeView.setTextColor(textColor);
 
             // value
             valueView.setAlwaysSigned(true);
             valueView.setFormat(format);
             final Coin value;
-            if (purpose == Purpose.RAISE_FEE)
+            if (purpose == Transaction.Purpose.RAISE_FEE)
             {
                 valueView.setTextColor(colorInsignificant);
                 value = fee.negate();
@@ -567,73 +560,71 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             else
             {
                 valueView.setTextColor(valueColor);
-                value = txCache.showFee ? txCache.value.add(fee) : txCache.value;
+                // TODO add fee for sent tx's
+                value = txCache.value;
             }
             valueView.setAmount(value);
             valueView.setVisibility(!value.isZero() ? View.VISIBLE : View.GONE);
 
-            // message
-            extendMessageView.setVisibility(View.GONE);
-            messageView.setSingleLine(false);
+            // tx info
+            extendTxInfoView.setVisibility(View.GONE);
+            txInfoView.setSingleLine(false);
 
-            if (purpose == Purpose.KEY_ROTATION)
+            if (purpose == Transaction.Purpose.KEY_ROTATION)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
-                messageView.setTextColor(colorSignificant);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
+                txInfoView.setTextColor(colorSignificant);
             }
-            else if (purpose == Purpose.RAISE_FEE)
+            else if (purpose == Transaction.Purpose.RAISE_FEE)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(R.string.transaction_row_message_purpose_raise_fee);
-                messageView.setTextColor(colorInsignificant);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(R.string.transaction_row_message_purpose_raise_fee);
+                txInfoView.setTextColor(colorInsignificant);
             }
-            else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
+            else if (isOwn && confidenceType == TransactionConfidence.ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(R.string.transaction_row_message_own_unbroadcasted);
-                messageView.setTextColor(colorInsignificant);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(R.string.transaction_row_message_own_unbroadcasted);
+                txInfoView.setTextColor(colorInsignificant);
             }
-            else if (!isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
+            else if (!isOwn && confidenceType == TransactionConfidence.ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(R.string.transaction_row_message_received_direct);
-                messageView.setTextColor(colorInsignificant);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(R.string.transaction_row_message_received_direct);
+                txInfoView.setTextColor(colorInsignificant);
             }
             else if (!txCache.sent && txCache.value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(R.string.transaction_row_message_received_dust);
-                messageView.setTextColor(colorInsignificant);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(R.string.transaction_row_message_received_dust);
+                txInfoView.setTextColor(colorInsignificant);
             }
-            else if (!txCache.sent && confidenceType == ConfidenceType.PENDING)
+            else if (!txCache.sent && confidenceType == TransactionConfidence.ConfidenceType.PENDING)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
-                messageView.setTextColor(colorInsignificant);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
+                txInfoView.setTextColor(colorInsignificant);
             }
-            else if (!txCache.sent && confidenceType == ConfidenceType.DEAD)
+            else if (!txCache.sent && confidenceType == TransactionConfidence.ConfidenceType.DEAD)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(R.string.transaction_row_message_received_dead);
-                messageView.setTextColor(colorError);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(R.string.transaction_row_message_received_dead);
+                txInfoView.setTextColor(colorError);
             }
             else if (!txCache.sent && WalletUtils.isPayToManyTransaction(tx))
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(R.string.transaction_row_message_received_pay_to_many);
-                messageView.setTextColor(colorInsignificant);
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(R.string.transaction_row_message_received_pay_to_many);
+                txInfoView.setTextColor(colorInsignificant);
             }
             else if (memo != null)
             {
-                extendMessageView.setVisibility(View.VISIBLE);
-                messageView.setText(memo[0]);
-                messageView.setTextColor(colorInsignificant);
-                messageView.setSingleLine(!itemView.isActivated());
+                extendTxInfoView.setVisibility(View.VISIBLE);
+                txInfoView.setText(memo[0]);
+                txInfoView.setTextColor(colorInsignificant);
+                txInfoView.setSingleLine(!itemView.isActivated());
             }
-
-            // menu
-            menuView.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
         }
     }
 

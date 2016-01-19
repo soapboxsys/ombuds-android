@@ -53,7 +53,7 @@ import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Constants;
-import systems.soapbox.ombuds.client.memory.ProfileDbHelper;
+import systems.soapbox.ombuds.client.omb.memory.ProfileDbHelper;
 import systems.soapbox.ombuds.client.util.CircularProgressView;
 import systems.soapbox.ombuds.client.util.Formats;
 import systems.soapbox.ombuds.client.util.WalletUtils;

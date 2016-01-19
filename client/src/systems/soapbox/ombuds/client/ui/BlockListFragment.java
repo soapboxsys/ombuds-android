@@ -58,8 +58,8 @@ import java.util.concurrent.RejectedExecutionException;
 
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.service.BlockchainService;
-import systems.soapbox.ombuds.client.service.BlockchainServiceImpl;
+import systems.soapbox.ombuds.client.btc.service.BlockchainService;
+import systems.soapbox.ombuds.client.btc.service.BlockchainServiceImpl;
 import systems.soapbox.ombuds.client_test.R;
 
 /**

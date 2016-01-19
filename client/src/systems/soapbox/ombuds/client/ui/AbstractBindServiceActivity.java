@@ -25,8 +25,8 @@ import android.os.IBinder;
 
 import javax.annotation.Nullable;
 
-import systems.soapbox.ombuds.client.service.BlockchainService;
-import systems.soapbox.ombuds.client.service.BlockchainServiceImpl;
+import systems.soapbox.ombuds.client.btc.service.BlockchainService;
+import systems.soapbox.ombuds.client.btc.service.BlockchainServiceImpl;
 
 /**
  * @author Andreas Schildbach

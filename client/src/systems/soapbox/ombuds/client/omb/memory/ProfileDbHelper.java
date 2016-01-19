@@ -1,4 +1,4 @@
-package systems.soapbox.ombuds.client.memory;
+package systems.soapbox.ombuds.client.omb.memory;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
@@ -16,7 +15,6 @@ import systems.soapbox.ombuds.lib.field.BulletinId;
 import systems.soapbox.ombuds.lib.field.Location;
 import systems.soapbox.ombuds.lib.field.Message;
 import systems.soapbox.ombuds.lib.field.Timestamp;
-import systems.soapbox.ombuds.lib.record.AbstractRecord;
 import systems.soapbox.ombuds.lib.record.Bulletin;
 import systems.soapbox.ombuds.lib.record.Endorsement;
 

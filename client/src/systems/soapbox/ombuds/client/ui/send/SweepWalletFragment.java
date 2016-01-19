@@ -69,7 +69,7 @@ import javax.annotation.Nullable;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.data.PaymentIntent;
+import systems.soapbox.ombuds.client.btc.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;

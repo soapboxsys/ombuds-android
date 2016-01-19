@@ -36,8 +36,8 @@ import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.service.BlockchainState;
-import systems.soapbox.ombuds.client.service.BlockchainStateLoader;
+import systems.soapbox.ombuds.client.btc.service.BlockchainState;
+import systems.soapbox.ombuds.client.btc.service.BlockchainStateLoader;
 import systems.soapbox.ombuds.client_test.R;
 
 /**

@@ -57,7 +57,7 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
-import systems.soapbox.ombuds.client.camera.CameraManager;
+import systems.soapbox.ombuds.client.CameraManager;
 import systems.soapbox.ombuds.client_test.R;
 
 /**

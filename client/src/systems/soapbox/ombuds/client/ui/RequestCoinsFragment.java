@@ -63,7 +63,7 @@ import javax.annotation.Nullable;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.offline.AcceptBluetoothService;
+import systems.soapbox.ombuds.client.btc.offline.AcceptBluetoothService;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
 import systems.soapbox.ombuds.client.util.BitmapFragment;
 import systems.soapbox.ombuds.client.util.Bluetooth;

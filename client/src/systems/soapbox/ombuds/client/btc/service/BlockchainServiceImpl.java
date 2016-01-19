@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package systems.soapbox.ombuds.client.service;
+package systems.soapbox.ombuds.client.btc.service;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -87,7 +87,7 @@ import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.service.BlockchainState.Impediment;
+import systems.soapbox.ombuds.client.btc.service.BlockchainState.Impediment;
 import systems.soapbox.ombuds.client.ui.WalletActivity;
 import systems.soapbox.ombuds.client.util.CrashReporter;
 import systems.soapbox.ombuds.client.util.ThrottlingWalletChangeListener;

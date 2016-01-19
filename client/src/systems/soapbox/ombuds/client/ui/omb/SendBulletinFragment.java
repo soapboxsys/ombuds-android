@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.memory.ProfileDbHelper;
+import systems.soapbox.ombuds.client.omb.memory.ProfileDbHelper;
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsOfflineTask;

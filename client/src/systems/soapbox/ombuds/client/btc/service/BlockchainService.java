@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package systems.soapbox.ombuds.client.service;
+package systems.soapbox.ombuds.client.btc.service;
 
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.StoredBlock;

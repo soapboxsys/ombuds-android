@@ -36,8 +36,8 @@ import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
 import java.util.List;
 
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.service.BlockchainService;
-import systems.soapbox.ombuds.client.service.BlockchainState;
+import systems.soapbox.ombuds.client.btc.service.BlockchainService;
+import systems.soapbox.ombuds.client.btc.service.BlockchainState;
 import systems.soapbox.ombuds.client.ui.send.MaintenanceDialogFragment;
 
 /**

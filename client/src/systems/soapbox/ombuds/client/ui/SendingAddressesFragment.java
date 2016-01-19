@@ -59,7 +59,7 @@ import javax.annotation.Nonnull;
 import systems.soapbox.ombuds.client.AddressBookProvider;
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.data.PaymentIntent;
+import systems.soapbox.ombuds.client.btc.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
 import systems.soapbox.ombuds.client.util.BitmapFragment;

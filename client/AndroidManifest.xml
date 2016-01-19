@@ -192,13 +192,13 @@
             android:grantUriPermissions="true" />
 
         <service
-            android:name="systems.soapbox.ombuds.client.service.BlockchainServiceImpl"
+            android:name="systems.soapbox.ombuds.client.btc.service.BlockchainServiceImpl"
             android:exported="false" />
         <service
-            android:name="systems.soapbox.ombuds.client.offline.AcceptBluetoothService"
+            android:name="systems.soapbox.ombuds.client.btc.offline.AcceptBluetoothService"
             android:exported="false" />
 
-        <receiver android:name="systems.soapbox.ombuds.client.service.AutosyncReceiver">
+        <receiver android:name="systems.soapbox.ombuds.client.btc.service.AutosyncReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -208,7 +208,7 @@
         </receiver>
 
         <service
-            android:name="systems.soapbox.ombuds.client.service.UpgradeWalletService"
+            android:name="systems.soapbox.ombuds.client.btc.service.UpgradeWalletService"
             android:exported="false" />
     </application>
 

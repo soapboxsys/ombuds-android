@@ -39,7 +39,7 @@ import java.net.URL;
 import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Constants;
-import systems.soapbox.ombuds.client.data.PaymentIntent;
+import systems.soapbox.ombuds.client.btc.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser;
 import systems.soapbox.ombuds.client.util.Bluetooth;
 import systems.soapbox.ombuds.client_test.R;

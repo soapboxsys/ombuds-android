@@ -1,4 +1,4 @@
-package systems.soapbox.ombuds.client.memory;
+package systems.soapbox.ombuds.client.omb.memory;
 
 /**
  * Created by askuck on 1/18/16.

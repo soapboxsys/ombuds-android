@@ -24,7 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import systems.soapbox.ombuds.client.data.PaymentIntent;
+import systems.soapbox.ombuds.client.btc.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
 import systems.soapbox.ombuds.client.ui.HelpDialogFragment;
 import systems.soapbox.ombuds.client_test.R;

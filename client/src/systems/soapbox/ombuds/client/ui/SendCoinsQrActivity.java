@@ -28,7 +28,7 @@ import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
 
 import systems.soapbox.ombuds.client.WalletApplication;
-import systems.soapbox.ombuds.client.data.PaymentIntent;
+import systems.soapbox.ombuds.client.btc.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsActivity;
 import systems.soapbox.ombuds.client.ui.send.SweepWalletActivity;

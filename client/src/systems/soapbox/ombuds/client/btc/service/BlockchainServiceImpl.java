@@ -300,8 +300,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         @Override
         public void onBlocksDownloaded(final Peer peer, final Block block, final FilteredBlock filteredBlock, final int blocksLeft)
         {
-            config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
-
             delayHandler.removeCallbacksAndMessages(null);
 
             final long now = System.currentTimeMillis();
@@ -319,6 +317,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
             {
                 lastMessageTime.set(System.currentTimeMillis());
 
+                config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
                 broadcastBlockchainState();
             }
         };

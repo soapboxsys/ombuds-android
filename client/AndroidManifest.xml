@@ -49,9 +49,10 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="systems.soapbox.ombuds.client.WalletApplication"
+        android:name="systems.soapbox.ombuds.client.ClientApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_app_color_48dp"
         android:label="@string/app_name"
@@ -61,8 +62,8 @@
             android:configChanges="keyboard|keyboardHidden"
             android:exported="true"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/Theme.Ombuds" />
+            android:theme="@style/Theme.Ombuds"
+            android:windowSoftInputMode="adjustNothing" />
 
         <activity-alias
             android:name="systems.soapbox.ombuds.client.WalletActivity"
@@ -76,9 +77,9 @@
 
         <activity
             android:name="systems.soapbox.ombuds.client.ui.send.SendCoinsActivity"
-            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/send_coins_activity_title"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds"
             android:windowSoftInputMode="adjustResize">
@@ -100,36 +101,36 @@
         </activity>
         <activity
             android:name="systems.soapbox.ombuds.client.ui.omb.SendBulletinActivity"
-            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/send_bulletin_activity_title"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.SendCoinsQrActivity"
             android:configChanges="keyboard|keyboardHidden"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.RequestCoinsActivity"
-            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/request_coins_activity_title"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.AddressBookActivity"
-            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/address_book_activity_title"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.NetworkMonitorActivity"
-            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/network_monitor_activity_title"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds" />
         <activity
@@ -158,26 +159,28 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.send.SweepWalletActivity"
-            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/sweep_wallet_activity_title"
+            android:parentActivityName="systems.soapbox.ombuds.client.ui.WalletActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Ombuds"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="systems.soapbox.ombuds.client.ui.omb.SearchActivity"
-            android:label="@string/search_activity_title"
-            android:theme="@style/Theme.Ombuds.Search"
-            android:launchMode="singleTop"
             android:exported="false"
+            android:label="@string/search_activity_title"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Ombuds.Search"
             android:windowSoftInputMode="stateAlwaysVisible">
+
             <!-- This Activity handles the search intent -->
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
-                <!-- Intent filter does not need a category = default, since the system delivers
+                <!--
+                     Intent filter does not need a category = default, since the system delivers
                      the ACTION_SEARCH intent explicitly to the searcheable activity,
                      using component name.
-                  -->
+                -->
             </intent-filter>
         </activity>
 
@@ -210,6 +213,9 @@
         <service
             android:name="systems.soapbox.ombuds.client.btc.service.UpgradeWalletService"
             android:exported="false" />
+        <service
+            android:name="systems.soapbox.ombuds.client.omb.WebRelayCoordinator"
+            android:exported="false"></service>
     </application>
 
 </manifest>

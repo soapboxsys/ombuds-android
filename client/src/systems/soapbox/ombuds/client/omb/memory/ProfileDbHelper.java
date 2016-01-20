@@ -29,20 +29,20 @@ public class ProfileDbHelper extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
 
     public static abstract class BltnTable implements BaseColumns {
-        public static final String TABLE_NAME = "bltns";
-        public static final String COLUMN_TXID = "txid";
-        public static final String COLUMN_TIME = "time";
-        public static final String COLUMN_MSG = "msg";
-        public static final String COLUMN_LAT = "lat";
-        public static final String COLUMN_LON = "lon";
-        public static final String COLUMN_H = "h";
+        public static final String TABLE_NAME       = "bltns";
+        public static final String COLUMN_TXID      = "txid";
+        public static final String COLUMN_TIME      = "time";
+        public static final String COLUMN_MSG       = "msg";
+        public static final String COLUMN_LAT       = "lat";
+        public static final String COLUMN_LON       = "lon";
+        public static final String COLUMN_H         = "h";
     }
 
     public static abstract class EndoTable implements BaseColumns {
-        public static final String TABLE_NAME = "endos";
-        public static final String COLUMN_TXID = "txid";
-        public static final String COLUMN_TIME = "time";
-        public static final String COLUMN_BLTN_ID = "bltn_id";
+        public static final String TABLE_NAME       = "endos";
+        public static final String COLUMN_TXID      = "txid";
+        public static final String COLUMN_TIME      = "time";
+        public static final String COLUMN_BLTN_ID   = "bltn_id";
     }
 
     public static final String SQL_WHERE_ARG = " = ? ";
@@ -106,7 +106,7 @@ public class ProfileDbHelper extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
 
         } catch (Exception e) {
-            e.printStackTrace();
+
         } finally {
             db.endTransaction();
         }
@@ -126,7 +126,7 @@ public class ProfileDbHelper extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
 
         } catch (Exception e) {
-            e.printStackTrace();
+
         } finally {
             db.endTransaction();
         }

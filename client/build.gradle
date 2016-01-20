@@ -23,6 +23,12 @@ dependencies {
     compile 'com.gordonwong:material-sheet-fab:1.2'
     compile 'com.apradanas.simplelinkabletext:library:1.0.3@aar'
     compile files('libs/ombuds-lib.jar')
+
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+//    compile 'com.squareup.okhttp:okhttp:2.7.0'
+//    compile 'com.squareup.dagger:dagger:1.2.2'
 }
 
 ext {

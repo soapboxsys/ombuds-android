@@ -70,7 +70,7 @@ import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.btc.data.PaymentIntent;
 import systems.soapbox.ombuds.client.ui.InputParser.StringInputParser;
-import systems.soapbox.ombuds.client.ui.omb.ExplorePagerAdapter;
+import systems.soapbox.ombuds.client.ui.omb.PublicRecordPagerAdapter;
 import systems.soapbox.ombuds.client.ui.omb.SearchActivity;
 import systems.soapbox.ombuds.client.ui.omb.SendBulletinActivity;
 import systems.soapbox.ombuds.client.ui.omb.SendFab;
@@ -178,8 +178,8 @@ public final class WalletActivity extends AbstractWalletActivity
     private void setupTabs() {
         // Setup view pager
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);
-        viewpager.setAdapter(new ExplorePagerAdapter(this, getFragmentManager()));
-        viewpager.setOffscreenPageLimit(ExplorePagerAdapter.NUM_ITEMS);
+        viewpager.setAdapter(new PublicRecordPagerAdapter(this, getFragmentManager()));
+        viewpager.setOffscreenPageLimit(PublicRecordPagerAdapter.NUM_ITEMS);
         updatePage(viewpager.getCurrentItem());
 
         // Setup tab layout

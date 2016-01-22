@@ -106,7 +106,7 @@ public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
                 builder.setTitle("Endorsement");
                 builder.setIcon(resources.getDrawable(R.drawable.ic_done_all_black_24dp));
                 builder.setMessage("Do you endorse this bulletin?");
-                builder.setPositiveButton("Yes, I solemnly swear.", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes, I do.", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         EventBus.getDefault().post(new SendEndoEvent(txid));

@@ -105,6 +105,7 @@ public class SendBulletinFragment extends Fragment {
         final TextView topicsView = (TextView) view.findViewById(R.id.text_topics);
         messageEdit = (LinkableEditText) view.findViewById(R.id.edit_message);
 
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

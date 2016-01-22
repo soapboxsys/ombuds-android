@@ -19,11 +19,6 @@
             android:layout_weight="1"
             android:textStyle="italic" />
 
-        <View
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:background="@color/green_light"/>
 
         <Button
             android:id="@+id/button_send_bulletin"

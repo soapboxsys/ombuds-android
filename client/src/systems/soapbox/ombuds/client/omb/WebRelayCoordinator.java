@@ -1,6 +1,7 @@
 package systems.soapbox.ombuds.client.omb;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
@@ -10,9 +11,13 @@ import systems.soapbox.ombuds.client.omb.model.service.WebRelayServiceManager;
 
 public class WebRelayCoordinator extends Service {
 
+    public static final String ACTION_REFRESH_NEW_BLTNS = ".refresh_new_bulletins";
     WebRelayServiceManager webRelayServiceManager;
 
-    public WebRelayCoordinator() {
+    public static void refreshNewBltns(Context context) {
+        Intent intent = new Intent(context, WebRelayCoordinator.class);
+        intent.setAction(ACTION_REFRESH_NEW_BLTNS);
+        context.startService(intent);
     }
 
     @Override
@@ -29,7 +34,7 @@ public class WebRelayCoordinator extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(intent != null) {
             String action = intent.getAction();
-            if("REFRESH".equals(action)) {
+            if(ACTION_REFRESH_NEW_BLTNS.equals(action)) {
                 getNewBulltins();
             }
         }

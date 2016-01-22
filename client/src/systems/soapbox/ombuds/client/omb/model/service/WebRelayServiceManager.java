@@ -1,11 +1,11 @@
 package systems.soapbox.ombuds.client.omb.model.service;
 
-import android.util.Log;
-
+import de.greenrobot.event.EventBus;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+import systems.soapbox.ombuds.client.omb.event.NewBulletinsEvent;
 import systems.soapbox.ombuds.client.omb.memory.PublicRecordDbHelper;
 import systems.soapbox.ombuds.client.omb.model.response.NewBulletinsResponse;
 
@@ -31,20 +31,15 @@ public class WebRelayServiceManager {
             @Override
             public void onResponse(Response<NewBulletinsResponse> response, Retrofit retrofit) {
                 if(response.isSuccess()){
-                    Log.d(TAG, "received successful response");
-                    Log.d(TAG, response.message());
                     pubrecDb.updateNewBulletins(response.body());
                 } else {
-                    Log.d(TAG, "received BAD response");
-                    Log.d(TAG, response.message());
-                    // do something
                 }
+                EventBus.getDefault().post(new NewBulletinsEvent(response.isSuccess()));
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e(TAG, "FAIL NO RESPONSE");
-                // do something
+                EventBus.getDefault().post(new NewBulletinsEvent(false));
             }
         });
     }

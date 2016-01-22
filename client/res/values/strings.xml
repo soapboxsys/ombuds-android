@@ -7,10 +7,11 @@
     <string name="profile_frag">Profile</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="profile_row_no_topics">@string/send_bulletin_no_topics</string>
     <string name="profile_row_payment_received">Payment Received</string>
     <string name="profile_row_payment_sent">Payment Sent</string>
     <string name="profile_row_endorsement">Endorsement</string>
-    <string name="profile_row_no_topics">@string/send_bulletin_no_topics</string>
+    <string name="profile_email_for_bitcoin">Email your author identity to coins@soapbox.systems and we might send you some.</string>
 
     <string name="send_bulletin_action_title">Create bulletin</string>
     <string name="send_bulletin_activity_title">Send Bulletin</string>

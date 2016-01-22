@@ -9,13 +9,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/wallet_transactions_empty"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_bright"
-        android:gravity="center"
-        android:textSize="@dimen/font_size_small" />
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/wallet_transactions_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_bright"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textSize="@dimen/font_size_small" />
+
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/wallet_transactions_list"

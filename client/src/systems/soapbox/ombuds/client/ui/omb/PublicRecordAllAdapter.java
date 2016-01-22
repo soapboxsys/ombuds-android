@@ -1,14 +1,20 @@
 package systems.soapbox.ombuds.client.ui.omb;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.security.NoSuchAlgorithmException;
 
 import systems.soapbox.ombuds.client.omb.memory.PublicRecordDbHelper;
 import systems.soapbox.ombuds.client.util.CursorRecyclerAdapter;
@@ -21,10 +27,12 @@ import systems.soapbox.ombuds.lib.field.Message;
 public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
 
     Context context;
+    Resources resources;
 
     public PublicRecordAllAdapter(Context context, Cursor cursor) {
         super(cursor);
         this.context = context;
+        this.resources = context.getResources();
     }
 
     @Override
@@ -48,9 +56,17 @@ public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
         double lat      = cursor.getDouble(latCol);
         double lon      = cursor.getDouble(lonCol);
         double h        = cursor.getDouble(hCol);
-        String auth      = cursor.getString(authCol);
+        String auth     = cursor.getString(authCol);
         int numEndos    = cursor.getInt(numEndosCol);
 
+        try {
+            String addrColor = Utils.colorAddr(auth);
+            bltnVH.authorView.setTextColor( Color.parseColor(addrColor) );
+            bltnVH.authorView.setTypeface(Typeface.MONOSPACE);
+        } catch (NoSuchAlgorithmException e) {
+            // that's ok
+        }
+        bltnVH.timeView.setTextColor(resources.getColor(R.color.fg_significant));
 
         bltnVH.view.setTag(id);
         String topics = Utils.listToHashtagString(Message.topicExtractor(msg));
@@ -58,7 +74,7 @@ public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
         bltnVH.numEndos.setText(Integer.toString(numEndos));
         bltnVH.messageView.setText(msg);;
         bltnVH.timeView.setText(DateUtils.formatDateTime(context, time*1000L, DateUtils.FORMAT_SHOW_DATE));
-        bltnVH.authorView.setText( auth.length() < 6 ? auth : auth.substring(0, 6));
+        bltnVH.authorView.setText( "@" + ( auth.length() < 6 ? auth : auth.substring(0, 6)) );
     }
 
     @Override

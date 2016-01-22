@@ -46,7 +46,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -177,13 +176,11 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration()
-        {
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             private final int PADDING = 2 * activity.getResources().getDimensionPixelOffset(R.dimen.card_padding_vertical);
 
             @Override
-            public void getItemOffsets(final Rect outRect, final View view, final RecyclerView parent, final RecyclerView.State state)
-            {
+            public void getItemOffsets(final Rect outRect, final View view, final RecyclerView parent, final RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
 
                 final int position = parent.getChildAdapterPosition(view);
@@ -383,12 +380,9 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
         {
             viewGroup.setDisplayedChild(1);
 
-            final SpannableStringBuilder emptyText = new SpannableStringBuilder(
-                    getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
-                            : R.string.wallet_transactions_fragment_empty_text_received));
+            final SpannableStringBuilder emptyText = new SpannableStringBuilder("You have no Bitcoin.");
             emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(), SpannableStringBuilder.SPAN_POINT_MARK);
-            if (direction != Direction.SENT)
-                emptyText.append("\n\n").append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
+            emptyText.append("\n\n").append(getString(R.string.profile_email_for_bitcoin));
             emptyView.setText(emptyText);
         }
         else

@@ -145,7 +145,7 @@ public class PublicRecordDbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getNewBulletinCursor() {
+    public Cursor getNewBulletinsCursor() {
         SQLiteDatabase db = getReadableDatabase();
 
         String[] projection = {
@@ -163,14 +163,16 @@ public class PublicRecordDbHelper extends SQLiteOpenHelper {
 //        String selection = NewBltnsTable.COLUMN_TXID + SQL_WHERE_ARG;
 //        String[] selectionArgs = {txid.toString()};
 
+        String ORDER_BY = NewBltnsTable.COLUMN_TIME + " DESC";
+
         Cursor c = db.query(
                 NewBltnsTable.TABLE_NAME,                   // The table to query
-                projection,                             // The columns to return
-                null,                              // The columns for the WHERE clause
-                null,                          // The values for the WHERE clause
-                null,                                   // don't group the rows
-                null,                                   // don't filter by row groups
-                null                                    // The sort order
+                projection,                                 // The columns to return
+                null,                                       // The columns for the WHERE clause
+                null,                                       // The values for the WHERE clause
+                null,                                       // don't group the rows
+                null,                                       // don't filter by row groups
+                ORDER_BY                                    // The sort order
         );
 
         return c;

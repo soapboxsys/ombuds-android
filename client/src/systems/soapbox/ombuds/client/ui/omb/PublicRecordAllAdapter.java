@@ -59,6 +59,8 @@ public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
         String auth     = cursor.getString(authCol);
         int numEndos    = cursor.getInt(numEndosCol);
 
+        bltnVH.view.setPreventCornerOverlap(false);
+        bltnVH.view.setUseCompatPadding(true);
         try {
             String addrColor = Utils.colorAddr(auth);
             bltnVH.authorView.setTextColor( Color.parseColor(addrColor) );

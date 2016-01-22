@@ -74,14 +74,6 @@
                     android:drawableStart="@drawable/ic_send_grey_600_24dp"
                     android:text="@string/button_send_coins" />
 
-                <!-- Request coins-->
-                <TextView
-                    android:id="@+id/fab_sheet_item_request_coin"
-                    style="@style/TextAppearance.Ombuds.Sheet.Item"
-                    android:drawableLeft="@drawable/ic_call_received_grey_600_24dp"
-                    android:drawableStart="@drawable/ic_call_received_grey_600_24dp"
-                    android:text="@string/button_request_coins" />
-
                 <!-- Scan button -->
                 <TextView
                     android:id="@+id/fab_sheet_item_scan"

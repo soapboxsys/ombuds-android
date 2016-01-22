@@ -147,15 +147,6 @@ public final class WalletActivity extends AbstractWalletActivity
             }
         });
 
-        final View requestCoinButton = findViewById(R.id.fab_sheet_item_request_coin);
-        requestCoinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                handleRequestCoins();
-                materialSheetFab.hideSheet();
-            }
-        });
-
         final View scanButton = findViewById(R.id.fab_sheet_item_scan);
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override

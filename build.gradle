@@ -4,10 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-alpha2'
-        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:1.0.2') {
-            exclude group: 'xerces'
-        }
+        classpath 'com.android.tools.build:gradle:2.0.0-alpha5'
     }
 }
 

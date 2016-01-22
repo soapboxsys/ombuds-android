@@ -544,7 +544,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
     private void updateView()
     {
         adapter.setFormat(config.getFormat());
-        adapter.setWarning(warning());
+//        adapter.setWarning(warning());
     }
 
     private Warning warning()

@@ -37,9 +37,9 @@ public class PublicRecordPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case ALL_POS:
-//                return context.getString(R.string.all_frag);
+//                return activity.getString(R.string.all_frag);
             case PROFILE_POS:
-//                return context.getString(R.string.profile_frag);
+//                return activity.getString(R.string.profile_frag);
             default:
                 return "";
         }

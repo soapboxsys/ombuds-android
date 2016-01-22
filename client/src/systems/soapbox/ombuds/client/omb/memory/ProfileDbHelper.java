@@ -133,8 +133,7 @@ public class ProfileDbHelper extends SQLiteOpenHelper {
     }
 
     public boolean isRecord(final Sha256Hash txid) {
-        return isBulletin(txid);
-        //return isBulletin(txid) || isEndorsement(txid);
+        return isBulletin(txid) || isEndorsement(txid);
     }
 
     public boolean isBulletin(final Sha256Hash txid) {

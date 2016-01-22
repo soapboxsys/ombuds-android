@@ -1,38 +1,55 @@
 package systems.soapbox.ombuds.client.ui.omb;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.bitcoinj.core.Wallet;
+
 import java.security.NoSuchAlgorithmException;
 
+import de.greenrobot.event.EventBus;
+import systems.soapbox.ombuds.client.Constants;
+import systems.soapbox.ombuds.client.WalletApplication;
+import systems.soapbox.ombuds.client.omb.event.NewBulletinsEvent;
+import systems.soapbox.ombuds.client.omb.event.SendEndoEvent;
+import systems.soapbox.ombuds.client.omb.memory.ProfileDbHelper;
 import systems.soapbox.ombuds.client.omb.memory.PublicRecordDbHelper;
+import systems.soapbox.ombuds.client.ui.AbstractWalletActivity;
+import systems.soapbox.ombuds.client.ui.DialogBuilder;
+import systems.soapbox.ombuds.client.ui.send.SendCoinsOfflineTask;
 import systems.soapbox.ombuds.client.util.CursorRecyclerAdapter;
 import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.lib.OmbudsBuilder;
+import systems.soapbox.ombuds.lib.encode.BasicEncoder1;
+import systems.soapbox.ombuds.lib.encode.MaxSizeException;
+import systems.soapbox.ombuds.lib.field.BulletinId;
 import systems.soapbox.ombuds.lib.field.Message;
+import systems.soapbox.ombuds.lib.field.Timestamp;
+import systems.soapbox.ombuds.lib.record.Endorsement;
 
 /**
  * Created by askuck on 1/19/16.
  */
 public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
 
-    Context context;
+    AbstractWalletActivity activity;
     Resources resources;
 
-    public PublicRecordAllAdapter(Context context, Cursor cursor) {
+    public PublicRecordAllAdapter(AbstractWalletActivity activity, Cursor cursor) {
         super(cursor);
-        this.context = context;
-        this.resources = context.getResources();
+        this.activity = activity;
+        this.resources = this.activity.getResources();
     }
 
     @Override
@@ -50,7 +67,7 @@ public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
         int numEndosCol = cursor.getColumnIndexOrThrow(PublicRecordDbHelper.NewBltnsTable.COLUMN_NUM_ENDOS);
 
         int id          = cursor.getInt(idCol);
-        String txid     = cursor.getString(txidCol);
+        final String txid     = cursor.getString(txidCol);
         long time       = cursor.getLong(timeCol);
         String msg      = cursor.getString(msgCol);
         double lat      = cursor.getDouble(latCol);
@@ -74,11 +91,33 @@ public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
 
         bltnVH.view.setTag(id);
         String topics = Utils.listToHashtagString(Message.topicExtractor(msg));
-        bltnVH.typeView.setText( topics.isEmpty() ? context.getString(R.string.profile_row_no_topics) : topics );
+        bltnVH.typeView.setText( topics.isEmpty() ? activity.getString(R.string.profile_row_no_topics) : topics );
         bltnVH.numEndos.setText(Integer.toString(numEndos));
         bltnVH.messageView.setText(msg);;
-        bltnVH.timeView.setText(DateUtils.formatDateTime(context, time*1000L, DateUtils.FORMAT_SHOW_DATE));
+        bltnVH.timeView.setText(DateUtils.formatDateTime(activity, time*1000L, DateUtils.FORMAT_SHOW_DATE));
         bltnVH.authorView.setText( "@" + ( auth.length() < 6 ? auth : auth.substring(0, 6)) );
+
+
+        bltnVH.view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle("Endorsement");
+                builder.setIcon(resources.getDrawable(R.drawable.ic_done_all_black_24dp));
+                builder.setMessage("Do you endorse this bulletin?");
+                builder.setPositiveButton("Yes, I solemnly swear.", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        EventBus.getDefault().post(new SendEndoEvent(txid));
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+
+                return true;
+            }
+        });
     }
 
     @Override

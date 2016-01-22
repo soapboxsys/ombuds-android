@@ -330,7 +330,7 @@ public class ProfileTransactionsAdapter extends RecyclerView.Adapter<RecyclerVie
         private final View extendAddressView;
         private final TextView txInfoView;
         private final View extendTxInfoView;
-        private final TextView bltnMsgView;
+        private final TextView recordMsgView;
         private final View extendBltnMsgView;
         private final TextView timeView;
         private final CurrencyTextView valueView;
@@ -347,7 +347,7 @@ public class ProfileTransactionsAdapter extends RecyclerView.Adapter<RecyclerVie
             extendAddressView = itemView.findViewById(R.id.profile_row_extend_address);
             txInfoView = (TextView) itemView.findViewById(R.id.profile_row_tx_info);
             extendTxInfoView = itemView.findViewById(R.id.profile_row_extend_tx_info);
-            bltnMsgView = (TextView) itemView.findViewById(R.id.profile_row_bulletin_message);
+            recordMsgView = (TextView) itemView.findViewById(R.id.profile_row_bulletin_message);
             extendBltnMsgView = itemView.findViewById(R.id.profile_row_extend_bulletin_message);
             valueView = (CurrencyTextView) itemView.findViewById(R.id.profile_row_total_value);
 
@@ -532,13 +532,13 @@ public class ProfileTransactionsAdapter extends RecyclerView.Adapter<RecyclerVie
 
             // record message
             if(bltn != null) {
-                bltnMsgView.setText(bltn.getMessage().getMsg());
+                recordMsgView.setText(bltn.getMessage().getMsg());
                 extendBltnMsgView.setVisibility(View.VISIBLE);
             } else if(endo != null) {
-                bltnMsgView.setText(endo.getBulletinId().getHash().toString());
+                recordMsgView.setText(endo.getBulletinId().getHash().toString());
                 extendBltnMsgView.setVisibility(View.VISIBLE);
             } else {
-                bltnMsgView.setText("");
+                recordMsgView.setText("");
                 extendBltnMsgView.setVisibility(View.GONE);
             }
 

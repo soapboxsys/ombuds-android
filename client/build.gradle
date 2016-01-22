@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'androidsvgdrawable'
 
 dependencies {
     compile('com.github.tony19:logback-android-classic:1.1.1-3') {
@@ -77,11 +76,4 @@ android {
         exclude 'org.bitcoin.production.checkpoints'
         exclude 'org.bitcoin.test.checkpoints'
     }
-}
-
-task svgToPng(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
-    from = file('graphics')
-    to = file('res')
-    targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi']
-    outputFormat = 'PNG'
 }

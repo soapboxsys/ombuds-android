@@ -2,6 +2,7 @@ package systems.soapbox.ombuds.client.omb.memory;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -58,15 +59,18 @@ public class PublicRecordDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_NEW_BLTNS_TABLE = "CREATE TABLE IF NOT EXISTS " + NewBltnsTable.TABLE_NAME +
                 "(" +
+//                NewBltnsTable._ID               + " INTEGER AUTOINCREMENT, " +
                 NewBltnsTable.COLUMN_TXID       + " TEXT PRIMARY KEY, " +
                 NewBltnsTable.COLUMN_TIME       + " INTEGER, " +
                 NewBltnsTable.COLUMN_MSG        + " TEXT, " +
-                NewBltnsTable.COLUMN_LAT        + " INTEGER, " +
-                NewBltnsTable.COLUMN_LON        + " INTEGER, " +
-                NewBltnsTable.COLUMN_H          + " INTEGER, " +
+                NewBltnsTable.COLUMN_LAT        + " REAL, " +
+                NewBltnsTable.COLUMN_LON        + " REAL, " +
+                NewBltnsTable.COLUMN_H          + " REAL, " +
                 NewBltnsTable.COLUMN_AUTHOR     + " TEXT, " +
                 NewBltnsTable.COLUMN_NUM_ENDOS  + " INTEGER, " +
                 NewBltnsTable.COLUMN_BLOCK_REF  + " TEXT, " +
+//                "PRIMARY KEY(" + NewBltnsTable._ID + "," + NewBltnsTable.COLUMN_TXID + "), " +
+
                 "FOREIGN KEY(" + NewBltnsTable.COLUMN_BLOCK_REF + ") REFERENCES " +
                 BlockRefTable.TABLE_NAME + "(" + BlockRefTable.COLUMN_HASH + ")" +
                 ")";
@@ -140,4 +144,36 @@ public class PublicRecordDbHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
+
+    public Cursor getNewBulletinCursor() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] projection = {
+                "rowid as "+ NewBltnsTable._ID,
+                NewBltnsTable.COLUMN_TXID,
+                NewBltnsTable.COLUMN_TIME,
+                NewBltnsTable.COLUMN_MSG,
+                NewBltnsTable.COLUMN_LAT,
+                NewBltnsTable.COLUMN_LON,
+                NewBltnsTable.COLUMN_H,
+                NewBltnsTable.COLUMN_AUTHOR,
+                NewBltnsTable.COLUMN_NUM_ENDOS,
+        };
+
+//        String selection = NewBltnsTable.COLUMN_TXID + SQL_WHERE_ARG;
+//        String[] selectionArgs = {txid.toString()};
+
+        Cursor c = db.query(
+                NewBltnsTable.TABLE_NAME,                   // The table to query
+                projection,                             // The columns to return
+                null,                              // The columns for the WHERE clause
+                null,                          // The values for the WHERE clause
+                null,                                   // don't group the rows
+                null,                                   // don't filter by row groups
+                null                                    // The sort order
+        );
+
+        return c;
+    }
+
 }

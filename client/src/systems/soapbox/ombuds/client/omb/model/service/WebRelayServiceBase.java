@@ -9,7 +9,7 @@ import retrofit.Retrofit;
 public class WebRelayServiceBase {
 
     private static WebRelayServiceInterface webRelayInterface ;
-    private static final String SERVER_URL = "http://52.3.85.241/";
+    private static final String SERVER_URL = "http://relay.getombuds.org";
 
     protected static synchronized WebRelayServiceInterface getInterfaceInstance() {
         if(webRelayInterface == null) {

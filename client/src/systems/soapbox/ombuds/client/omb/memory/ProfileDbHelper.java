@@ -66,9 +66,9 @@ public class ProfileDbHelper extends SQLiteOpenHelper {
                 BltnTable.COLUMN_TXID   + " TEXT PRIMARY KEY," +
                 BltnTable.COLUMN_TIME   + " INTEGER, " +
                 BltnTable.COLUMN_MSG    + " TEXT, " +
-                BltnTable.COLUMN_LAT    + " INTEGER, " +
-                BltnTable.COLUMN_LON    + " INTEGER, " +
-                BltnTable.COLUMN_H      + " INTEGER " +
+                BltnTable.COLUMN_LAT    + " REAL, " +
+                BltnTable.COLUMN_LON    + " REAL, " +
+                BltnTable.COLUMN_H      + " REAL " +
                 ")";
 
         String CREATE_ENDOS_TABLE = "CREATE TABLE IF NOT EXISTS " + EndoTable.TABLE_NAME +

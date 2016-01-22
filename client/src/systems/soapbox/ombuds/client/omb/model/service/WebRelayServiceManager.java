@@ -1,5 +1,7 @@
 package systems.soapbox.ombuds.client.omb.model.service;
 
+import android.util.Log;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -29,14 +31,19 @@ public class WebRelayServiceManager {
             @Override
             public void onResponse(Response<NewBulletinsResponse> response, Retrofit retrofit) {
                 if(response.isSuccess()){
+                    Log.d(TAG, "received successful response");
+                    Log.d(TAG, response.message());
                     pubrecDb.updateNewBulletins(response.body());
                 } else {
+                    Log.d(TAG, "received BAD response");
+                    Log.d(TAG, response.message());
                     // do something
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
+                Log.e(TAG, "FAIL NO RESPONSE");
                 // do something
             }
         });

@@ -9,6 +9,6 @@ import systems.soapbox.ombuds.client.omb.model.response.NewBulletinsResponse;
  */
 public interface WebRelayServiceInterface {
 
-    @GET("/new")
+    @GET("/api/new")
     Call<NewBulletinsResponse> getNewBulletins();
 }

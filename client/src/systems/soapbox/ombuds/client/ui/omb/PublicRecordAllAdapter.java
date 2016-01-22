@@ -59,6 +59,8 @@ public class PublicRecordAllAdapter extends CursorRecyclerAdapter {
         String auth     = cursor.getString(authCol);
         int numEndos    = cursor.getInt(numEndosCol);
 
+        final int colorBackground = resources.getColor(R.color.bg_bright);
+        bltnVH.view.setCardBackgroundColor(colorBackground);
         bltnVH.view.setPreventCornerOverlap(false);
         bltnVH.view.setUseCompatPadding(true);
         try {

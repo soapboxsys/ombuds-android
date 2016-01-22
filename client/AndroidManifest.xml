@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="systems.soapbox.ombuds.client_test"
+    package="systems.soapbox.ombuds.client"
     android:installLocation="internalOnly"
     android:versionCode="2"
-    android:versionName="0.2-test">
+    android:versionName="0.2">
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -186,11 +186,11 @@
 
         <provider
             android:name="systems.soapbox.ombuds.client.AddressBookProvider"
-            android:authorities="systems.soapbox.ombuds.client_test.address_book"
+            android:authorities="systems.soapbox.ombuds.client.address_book"
             android:exported="false" />
         <provider
             android:name="systems.soapbox.ombuds.client.FileAttachmentProvider"
-            android:authorities="systems.soapbox.ombuds.client_test.file_attachment"
+            android:authorities="systems.soapbox.ombuds.client.file_attachment"
             android:exported="false"
             android:grantUriPermissions="true" />
 

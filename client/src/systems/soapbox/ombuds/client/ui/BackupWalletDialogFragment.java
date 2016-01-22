@@ -60,7 +60,7 @@ import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.util.Crypto;
 import systems.soapbox.ombuds.client.util.Iso8601Format;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 import static com.google.common.base.Preconditions.checkState;
 

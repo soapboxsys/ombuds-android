@@ -30,7 +30,7 @@ import systems.soapbox.ombuds.client.omb.memory.PublicRecordDbHelper;
 import systems.soapbox.ombuds.client.ui.AbstractWalletActivity;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
 import systems.soapbox.ombuds.client.ui.send.SendCoinsOfflineTask;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 import systems.soapbox.ombuds.lib.OmbudsBuilder;
 import systems.soapbox.ombuds.lib.encode.BasicEncoder1;
 import systems.soapbox.ombuds.lib.encode.MaxSizeException;

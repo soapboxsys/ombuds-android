@@ -32,7 +32,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

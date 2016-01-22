@@ -22,7 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

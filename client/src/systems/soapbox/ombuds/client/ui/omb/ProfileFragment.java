@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * Created by askuck on 12/22/15.

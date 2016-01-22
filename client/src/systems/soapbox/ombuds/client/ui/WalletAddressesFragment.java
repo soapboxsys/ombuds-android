@@ -59,7 +59,7 @@ import systems.soapbox.ombuds.client.util.Qr;
 import systems.soapbox.ombuds.client.util.Toast;
 import systems.soapbox.ombuds.client.util.WalletUtils;
 import systems.soapbox.ombuds.client.util.WholeStringBuilder;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

@@ -92,7 +92,7 @@ import systems.soapbox.ombuds.client.ui.WalletActivity;
 import systems.soapbox.ombuds.client.util.CrashReporter;
 import systems.soapbox.ombuds.client.util.ThrottlingWalletChangeListener;
 import systems.soapbox.ombuds.client.util.WalletUtils;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

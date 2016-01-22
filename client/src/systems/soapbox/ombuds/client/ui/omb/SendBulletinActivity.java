@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import systems.soapbox.ombuds.client.ui.AbstractBindServiceActivity;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 public class SendBulletinActivity extends AbstractBindServiceActivity {
 

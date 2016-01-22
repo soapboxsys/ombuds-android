@@ -69,7 +69,7 @@ import systems.soapbox.ombuds.client.util.BitmapFragment;
 import systems.soapbox.ombuds.client.util.Bluetooth;
 import systems.soapbox.ombuds.client.util.Qr;
 import systems.soapbox.ombuds.client.util.Toast;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

@@ -30,7 +30,7 @@ import android.widget.TextView;
 import javax.annotation.Nullable;
 
 import systems.soapbox.ombuds.client.Constants;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

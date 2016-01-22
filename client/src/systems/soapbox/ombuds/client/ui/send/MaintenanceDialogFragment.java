@@ -59,7 +59,7 @@ import javax.annotation.Nullable;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.ui.AbstractWalletActivity;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

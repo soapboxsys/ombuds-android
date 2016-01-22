@@ -11,7 +11,7 @@ import android.view.animation.ScaleAnimation;
 
 import com.gordonwong.materialsheetfab.AnimatedFab;
 
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * Created by Gordon Wong on 7/17/2015.

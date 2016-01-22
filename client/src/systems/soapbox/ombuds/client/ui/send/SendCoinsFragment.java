@@ -108,7 +108,7 @@ import systems.soapbox.ombuds.client.ui.ScanActivity;
 import systems.soapbox.ombuds.client.ui.TransactionsAdapter;
 import systems.soapbox.ombuds.client.util.Bluetooth;
 import systems.soapbox.ombuds.client.util.WalletUtils;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

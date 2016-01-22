@@ -42,7 +42,7 @@ import java.util.List;
 
 import systems.soapbox.ombuds.client.Constants;
 import systems.soapbox.ombuds.client.util.ViewPagerTabs;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

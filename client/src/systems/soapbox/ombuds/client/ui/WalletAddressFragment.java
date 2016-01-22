@@ -54,7 +54,7 @@ import systems.soapbox.ombuds.client.Configuration;
 import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.util.Qr;
 import systems.soapbox.ombuds.client.util.ThrottlingWalletChangeListener;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

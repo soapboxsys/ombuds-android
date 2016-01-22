@@ -47,7 +47,7 @@ import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.util.Crypto;
 import systems.soapbox.ombuds.client.util.Io;
 import systems.soapbox.ombuds.client.util.WalletUtils;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

@@ -58,7 +58,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import systems.soapbox.ombuds.client.CameraManager;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

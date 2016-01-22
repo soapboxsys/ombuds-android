@@ -40,7 +40,7 @@ import systems.soapbox.ombuds.client.ui.CurrencyTextView;
 import systems.soapbox.ombuds.client.util.CircularProgressView;
 import systems.soapbox.ombuds.client.util.Formats;
 import systems.soapbox.ombuds.client.util.WalletUtils;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 import systems.soapbox.ombuds.lib.field.Message;
 import systems.soapbox.ombuds.lib.record.Bulletin;
 import systems.soapbox.ombuds.lib.record.Endorsement;

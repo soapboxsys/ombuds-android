@@ -38,7 +38,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 import systems.soapbox.ombuds.client.ui.AbstractWalletActivity;
 
 //public class SearchActivity extends AbstractWalletActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {

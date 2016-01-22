@@ -37,7 +37,7 @@ import systems.soapbox.ombuds.client.WalletApplication;
 import systems.soapbox.ombuds.client.ui.DialogBuilder;
 import systems.soapbox.ombuds.client.ui.ReportIssueDialogBuilder;
 import systems.soapbox.ombuds.client.util.CrashReporter;
-import systems.soapbox.ombuds.client_test.R;
+import systems.soapbox.ombuds.client.R;
 
 /**
  * @author Andreas Schildbach

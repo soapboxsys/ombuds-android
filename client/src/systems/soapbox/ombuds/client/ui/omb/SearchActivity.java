@@ -273,9 +273,9 @@ public class SearchActivity extends AbstractWalletActivity implements AdapterVie
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            return true;
-        }
+//        if (item.getItemId() == R.id.action_search) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 

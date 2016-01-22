@@ -238,37 +238,9 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
     @Override
     public void onPrepareOptionsMenu(final Menu menu)
     {
-        if (direction == null)
-            menu.findItem(R.id.wallet_transactions_options_filter_all).setChecked(true);
-        else if (direction == Direction.RECEIVED)
-            menu.findItem(R.id.wallet_transactions_options_filter_received).setChecked(true);
-        else if (direction == Direction.SENT)
-            menu.findItem(R.id.wallet_transactions_options_filter_sent).setChecked(true);
-
         super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item)
-    {
-        final int itemId = item.getItemId();
-        if (itemId == R.id.wallet_transactions_options_filter_all)
-            direction = null;
-        else if (itemId == R.id.wallet_transactions_options_filter_received)
-            direction = Direction.RECEIVED;
-        else if (itemId == R.id.wallet_transactions_options_filter_sent)
-            direction = Direction.SENT;
-        else
-            return false;
-
-        item.setChecked(true);
-
-        final Bundle args = new Bundle();
-        args.putSerializable(ARG_DIRECTION, direction);
-        loaderManager.restartLoader(ID_TRANSACTION_LOADER, args, this);
-
-        return true;
-    }
 
     @Override
     public void onTransactionMenuClick(final View view, final Transaction tx)

@@ -90,13 +90,13 @@ public final class Constants
     public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
 
     /** Number of confirmations until a transaction is fully confirmed. */
-    public static final int MAX_NUM_CONFIRMATIONS = 7;
+    public static final int MAX_NUM_CONFIRMATIONS = 6;
 
     /** User-agent to use for network access. */
-    public static final String USER_AGENT = "Bitcoin Wallet";
+    public static final String USER_AGENT = "ombuds-android";
 
     /** Recipient e-mail address for reports. */
-    public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
+    public static final String REPORT_EMAIL = "coins@soapbox.systems";
 
     /** Subject line for manually reported issues. */
     public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
@@ -118,13 +118,13 @@ public final class Constants
 
     public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
-    public static final String SOURCE_URL = "https://github.com/schildbach/bitcoin-wallet";
-    public static final String BINARY_URL = "https://github.com/schildbach/bitcoin-wallet/releases";
-    public static final String MARKET_APP_URL = "market://details?id=%s";
+    public static final String SOURCE_URL = "https://github.com/soapboxsys/ombuds-android";
+//    public static final String BINARY_URL = "https://github.com/schildbach/bitcoin-wallet/releases";
+//    public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 
-    public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
-    public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
+    public static final int HTTP_TIMEOUT_MS = 7 * (int) DateUtils.SECOND_IN_MILLIS;
+    public static final int PEER_TIMEOUT_MS = 7 * (int) DateUtils.SECOND_IN_MILLIS;
 
     public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
     public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;

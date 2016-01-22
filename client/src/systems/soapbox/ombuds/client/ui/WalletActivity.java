@@ -307,12 +307,6 @@ public final class WalletActivity extends AbstractWalletActivity
         final Resources res = getResources();
         final String externalStorageState = Environment.getExternalStorageState();
 
-        menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(
-                Environment.MEDIA_MOUNTED.equals(externalStorageState) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
-        menu.findItem(R.id.wallet_options_backup_wallet).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-        menu.findItem(R.id.wallet_options_encrypt_keys).setTitle(
-                wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change : R.string.wallet_options_encrypt_keys_set);
-
         return true;
     }
 
@@ -321,17 +315,8 @@ public final class WalletActivity extends AbstractWalletActivity
     {
         switch (item.getItemId())
         {
-            case R.id.action_search:
-                startActivity(new Intent(this, SearchActivity.class));
-                return true;
-
             case R.id.wallet_options_address_book:
                 AddressBookActivity.start(this);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                return true;
-
-            case R.id.wallet_options_sweep_wallet:
-                SweepWalletActivity.start(this);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
 
@@ -340,28 +325,8 @@ public final class WalletActivity extends AbstractWalletActivity
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
 
-            case R.id.wallet_options_restore_wallet:
-                showDialog(DIALOG_RESTORE_WALLET);
-                return true;
-
-            case R.id.wallet_options_backup_wallet:
-                handleBackupWallet();
-                return true;
-
-            case R.id.wallet_options_encrypt_keys:
-                handleEncryptKeys();
-                return true;
-
             case R.id.wallet_options_preferences:
                 startActivity(new Intent(this, PreferenceActivity.class));
-                return true;
-
-            case R.id.wallet_options_safety:
-                HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
-                return true;
-
-            case R.id.wallet_options_help:
-                HelpDialogFragment.page(getFragmentManager(), R.string.help_wallet);
                 return true;
         }
 

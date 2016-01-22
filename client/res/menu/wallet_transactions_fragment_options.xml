@@ -2,23 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/wallet_transactions_options_filter"
-        app:showAsAction="never"
-        android:title="@string/wallet_transactions_options_filter">
-        <menu>
-            <group android:checkableBehavior="single" >
-                <item
-                    android:id="@+id/wallet_transactions_options_filter_all"
-                    android:title="@string/wallet_transactions_options_filter_all"/>
-                <item
-                    android:id="@+id/wallet_transactions_options_filter_received"
-                    android:title="@string/wallet_transactions_options_filter_received"/>
-                <item
-                    android:id="@+id/wallet_transactions_options_filter_sent"
-                    android:title="@string/wallet_transactions_options_filter_sent"/>
-            </group>
-        </menu>
-    </item>
 
 </menu>

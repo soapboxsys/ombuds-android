@@ -37,7 +37,6 @@ public final class AboutFragment extends PreferenceFragment
 {
     private Activity activity;
     private WalletApplication application;
-    private PackageManager packageManager;
 
     private static final String KEY_ABOUT_VERSION = "about_version";
     private static final String KEY_ABOUT_MARKET_APP = "about_market_app";
@@ -50,7 +49,6 @@ public final class AboutFragment extends PreferenceFragment
 
         this.activity = activity;
         this.application = (WalletApplication) activity.getApplication();
-        this.packageManager = activity.getPackageManager();
     }
 
     @Override
@@ -61,10 +59,6 @@ public final class AboutFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.preference_about);
 
         findPreference(KEY_ABOUT_VERSION).setSummary(application.packageInfo().versionName);
-        Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, activity.getPackageName())));
-        if (packageManager.resolveActivity(marketIntent, 0) == null)
-            marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName())));
-        findPreference(KEY_ABOUT_MARKET_APP).setIntent(marketIntent);
         findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setTitle(getString(R.string.about_credits_bitcoinj_title, VersionMessage.BITCOINJ_VERSION));
     }
 }

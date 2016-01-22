@@ -186,8 +186,7 @@ public final class WalletActivity extends AbstractWalletActivity
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewpager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_public_white_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_star_white_24dp);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_person_white_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_person_white_24dp);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -206,6 +205,11 @@ public final class WalletActivity extends AbstractWalletActivity
     }
 
     private void updatePage(int selectedPage) {
+        if(selectedPage == 0)
+            getSupportActionBar().setTitle( "Public Record" );
+        else
+            getSupportActionBar().setTitle( "Profile" );
+
         updateFab(selectedPage);
     }
 
